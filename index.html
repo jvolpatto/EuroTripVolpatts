@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Nossa Euro Trip Completa</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Nunito', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-blue': '#3b82f6',
+                        'brand-pink': '#ec4899',
+                        'brand-yellow': '#f59e0b',
+                        'brand-green': '#10b981',
+                        'brand-red': '#ef4444',
+                        'brand-purple': '#8b5cf6',
+                        'bg-light': '#f8fafc'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #f0fdf4; background-image: radial-gradient(#e2e8f0 1px, transparent 1px); background-size: 20px 20px; }
+        .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.5); }
+        .gradient-text { background: linear-gradient(135deg, #3b82f6, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .timeline-container { position: relative; padding-left: 2.5rem; }
+        .timeline-line { position: absolute; left: 1rem; top: 1.5rem; bottom: 0; width: 3px; background: #cbd5e1; border-radius: 4px; }
+        .timeline-dot { position: absolute; left: 0.2rem; width: 1.75rem; height: 1.75rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; z-index: 10; box-shadow: 0 0 0 4px #f0fdf4; margin-top: 0.2rem; }
+        
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Custom Scrollbar for horizontal nav */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Subtle separator for days */
+        .day-separator { border-top: 2px dashed #e2e8f0; margin: 2rem 0; padding-top: 2rem; position: relative; }
+        .day-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: white; padding: 0 15px; font-weight: bold; color: #64748b; border: 2px dashed #e2e8f0; border-radius: 20px; font-size: 0.85rem;}
+    </style>
+</head>
+<body class="text-slate-800 antialiased pb-20">
+
+    <!-- Header / Hero -->
+    <header class="pt-10 pb-6 px-4 text-center max-w-3xl mx-auto">
+        <div class="inline-block p-2 bg-white rounded-full shadow-md mb-3">
+            <i class="fa-solid fa-earth-europe text-brand-blue text-2xl px-2"></i>
+            <i class="fa-solid fa-baby-carriage text-brand-pink text-xl px-2"></i>
+            <i class="fa-solid fa-map-location-dot text-brand-yellow text-2xl px-2"></i>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-2 gradient-text">A Nossa Euro Trip</h1>
+        <p class="text-slate-500 font-semibold text-sm md:text-base">20 de Maio a 09 de Junho de 2026</p>
+        <div class="mt-3 flex flex-wrap justify-center gap-2">
+            <span class="text-xs bg-green-100 text-green-800 px-3 py-1 rounded-full font-bold"><i class="fa-solid fa-shoe-prints mr-1"></i> Passo a Passo Logístico</span>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-3xl mx-auto px-4">
+        
+        <!-- Navigation Tabs -->
+        <nav class="flex overflow-x-auto gap-3 mb-6 pb-4 snap-x hide-scrollbar" id="tabs">
+            <button onclick="showCity('lisboa1', this)" class="tab-btn snap-start shrink-0 bg-brand-green text-white font-bold py-2 px-5 rounded-2xl shadow-lg transition transform hover:scale-105">
+                <div class="text-xs font-normal opacity-80">20 a 23 Mai</div>
+                <i class="fa-solid fa-paste"></i> Lisboa I
+            </button>
+            <button onclick="showCity('madrid', this)" class="tab-btn snap-start shrink-0 bg-white text-slate-500 font-bold py-2 px-5 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50">
+                <div class="text-xs font-normal opacity-80">23 a 25 Mai</div>
+                <i class="fa-solid fa-bullhorn"></i> Madrid
+            </button>
+            <button onclick="showCity('roma', this)" class="tab-btn snap-start shrink-0 bg-white text-slate-500 font-bold py-2 px-5 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50">
+                <div class="text-xs font-normal opacity-80">25 a 28 Mai</div>
+                <i class="fa-brands fa-vimeo-v"></i> Roma
+            </button>
+            <button onclick="showCity('verona', this)" class="tab-btn snap-start shrink-0 bg-white text-slate-500 font-bold py-2 px-5 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50">
+                <div class="text-xs font-normal opacity-80">28 a 30 Mai</div>
+                <i class="fa-solid fa-heart"></i> Verona
+            </button>
+            <button onclick="showCity('milao', this)" class="tab-btn snap-start shrink-0 bg-white text-slate-500 font-bold py-2 px-5 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50">
+                <div class="text-xs font-normal opacity-80">30 Mai a 01 Jun</div>
+                <i class="fa-solid fa-building"></i> Milão
+            </button>
+            <button onclick="showCity('paris', this)" class="tab-btn snap-start shrink-0 bg-white text-slate-500 font-bold py-2 px-5 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50">
+                <div class="text-xs font-normal opacity-80">01 a 04 Jun</div>
+                <i class="fa-brands fa-fort-awesome"></i> Paris
+            </button>
+            <button onclick="showCity('disney', this)" class="tab-btn snap-start shrink-0 bg-white text-slate-500 font-bold py-2 px-5 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50">
+                <div class="text-xs font-normal opacity-80">04 a 05 Jun</div>
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Disney
+            </button>
+            <button onclick="showCity('lisboa2', this)" class="tab-btn snap-start shrink-0 bg-white text-slate-500 font-bold py-2 px-5 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50">
+                <div class="text-xs font-normal opacity-80">05 a 09 Jun</div>
+                <i class="fa-solid fa-plane-arrival"></i> Lisboa II
+            </button>
+        </nav>
+
+        <!-- ========================================== -->
+        <!-- CONTENT: LISBOA 1 -->
+        <!-- ========================================== -->
+        <div id="lisboa1" class="tab-content active">
+            <div class="glass-card rounded-3xl p-5 md:p-6 shadow-lg mb-6 border-t-4 border-brand-green">
+                <h2 class="text-2xl font-bold text-slate-800 mb-2">Chegada em Portugal</h2>
+                <p class="text-slate-500 text-sm mb-6">Aclimatação, fuso horário e passeios planos.</p>
+                
+                <div class="timeline-container">
+                    <div class="timeline-line"></div>
+                    
+                    <!-- Dia 20 e 21 -->
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-slate-800"><i class="fa-solid fa-plane-arrival"></i></div>
+                        <span class="text-xs font-bold text-brand-green uppercase tracking-wider">20 e 21 de Maio</span>
+                        <h3 class="text-lg font-bold text-slate-800">O Desembarque</h3>
+                        <p class="text-sm text-slate-600 mt-1"><strong>Logística:</strong> Façam imigração. Chamem um <strong>Uber ou Bolt</strong> ainda no aeroporto (siga as placas P2/Ride App). Evite o Metro com malas. Façam check-in no hotel e almocem perto para adaptar o corpo.</p>
+                    </div>
+
+                    <div class="day-separator"><div class="day-badge">22 de Maio (Sexta-feira)</div></div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-yellow"><i class="fa-solid fa-sun"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">09:30 - Manhã</span>
+                        <h3 class="text-lg font-bold text-slate-800">Baixa Pombalina (Plano)</h3>
+                        <p class="text-sm text-slate-600 mt-1">Caminhada pela <strong>Praça do Comércio</strong>, passando pelo Arco da Rua Augusta. Região perfeita e 100% plana para o carrinho de bebé.</p>
+                    </div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-orange-500"><i class="fa-solid fa-utensils"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">12:30 - Almoço</span>
+                        <h3 class="text-lg font-bold text-slate-800">Time Out Market</h3>
+                        <p class="text-sm text-slate-600 mt-1">Mercado da Ribeira (Cais do Sodré). Várias opções de comida excelente e rápida. É barulhento, mas ótimo para almoçar sem as formalidades de restaurante tradicional.</p>
+                    </div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-blue-500"><i class="fa-solid fa-train-tram"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">14:00 - Logística</span>
+                        <h3 class="text-lg font-bold text-slate-800">Ida para Belém</h3>
+                        <p class="text-sm text-slate-600 mt-1">Apanhem um <strong>Uber</strong> (cerca de €8) ou o Elétrico moderno 15E do Cais do Sodré até Belém. O Uber é mais confortável e garante lugar sentado para a família.</p>
+                    </div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-green"><i class="fa-solid fa-monument"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">14:30 às 17:00 - Tarde</span>
+                        <h3 class="text-lg font-bold text-slate-800">Torre & Pastéis de Belém</h3>
+                        <div class="bg-green-50 p-3 rounded-xl mt-2 border border-green-100">
+                            <ul class="text-sm text-slate-600 list-disc pl-4 space-y-1">
+                                <li>Passeio externo na <strong>Torre de Belém</strong> e Padrão dos Descobrimentos.</li>
+                                <li><strong>Soneca:</strong> Caminhem pelos gramados da Praça do Império enquanto a pequena dorme no carrinho.</li>
+                                <li><strong>Lanche:</strong> Comam os autênticos Pastéis de Belém originais.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- CONTENT: MADRID -->
+        <!-- ========================================== -->
+        <div id="madrid" class="tab-content">
+            <div class="glass-card rounded-3xl p-5 md:p-6 shadow-lg mb-6 border-t-4 border-brand-red">
+                <h2 class="text-2xl font-bold text-slate-800 mb-2">A Vibração Espanhola</h2>
+                <p class="text-slate-500 text-sm mb-6">Parques, Churros e Tapas (23 a 25/05)</p>
+                
+                <div class="timeline-container">
+                    <div class="timeline-line"></div>
+                    
+                    <!-- Dia 23 -->
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-slate-800"><i class="fa-solid fa-plane"></i></div>
+                        <span class="text-xs font-bold text-brand-red uppercase tracking-wider">23 de Maio (Sábado)</span>
+                        <h3 class="text-lg font-bold text-slate-800">Chegada & Parque El Retiro</h3>
+                        <p class="text-sm text-slate-600 mt-1"><strong>Logística Fim de Tarde:</strong> Após chegar do voo e fazer check-in com Uber (Aeroporto de Barajas), vão direto ao <strong>Parque El Retiro</strong>. O parque é gigantesco, perfeito para crianças brincarem. Jantar (Tapas) perto do hotel.</p>
+                    </div>
+
+                    <div class="day-separator"><div class="day-badge">24 de Maio (Domingo)</div></div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-yellow"><i class="fa-solid fa-building"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">10:00 - Manhã</span>
+                        <h3 class="text-lg font-bold text-slate-800">O Coração de Madrid</h3>
+                        <p class="text-sm text-slate-600 mt-1">Caminhada clássica pela <strong>Puerta del Sol</strong> (fotos com a estátua do Urso) em direção à <strong>Plaza Mayor</strong>.</p>
+                    </div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-red"><i class="fa-solid fa-mug-hot"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">11:30 - Lanche</span>
+                        <h3 class="text-lg font-bold text-slate-800">Churros no San Ginés</h3>
+                        <p class="text-sm text-slate-600 mt-1">Pausa obrigatória na histórica Chocolatería San Ginés para comer os tradicionais churros com chocolate quente espesso. As crianças amam.</p>
+                    </div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-orange-500"><i class="fa-solid fa-utensils"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">13:30 - Almoço</span>
+                        <h3 class="text-lg font-bold text-slate-800">Mercado de San Miguel</h3>
+                        <p class="text-sm text-slate-600 mt-1">Fica ao lado da Plaza Mayor. Comam as "tapas" caminhando pelo mercado ou sentem-se nos arredores. Após o almoço, inicie o passeio com a <strong>soneca da criança</strong> no carrinho.</p>
+                    </div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-blue"><i class="fa-brands fa-fort-awesome"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">16:00 - Tarde</span>
+                        <h3 class="text-lg font-bold text-slate-800">Palácio Real & Sabatini</h3>
+                        <p class="text-sm text-slate-600 mt-1">Caminhada agradável até à área do <strong>Palácio Real de Madrid</strong> e a Catedral de Almudena. Passeiem pelos belíssimos Jardins de Sabatini logo ao lado.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- CONTENT: ROMA -->
+        <!-- ========================================== -->
+        <div id="roma" class="tab-content">
+            <div class="glass-card rounded-3xl p-5 md:p-6 shadow-lg mb-6 border-t-4 border-amber-600">
+                <h2 class="text-2xl font-bold text-slate-800 mb-2">O Museu ao Ar Livre</h2>
+                <p class="text-slate-500 text-sm mb-6">Monumentos Clássicos & Gelatos (25 a 28/05)</p>
+                
+                <div class="timeline-container">
+                    <div class="timeline-line"></div>
+                    
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-slate-800"><i class="fa-solid fa-plane"></i></div>
+                        <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">25 de Maio (Segunda)</span>
+                        <h3 class="text-lg font-bold text-slate-800">Chegada a Fiumicino (FCO)</h3>
+                        <p class="text-sm text-slate-600 mt-1">Usem a praça de <strong>Táxis Oficiais</strong> do aeroporto (Tarifa fixa de €50 até ao centro de Roma). Mais seguro e prático do que o comboio para quem tem malas. Jantar com a primeira massa autêntica!</p>
+                    </div>
+
+                    <div class="day-separator"><div class="day-badge">26 de Maio (Terça-feira)</div></div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-amber-600"><i class="fa-brands fa-vimeo-v"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">09:30 - Manhã</span>
+                        <h3 class="text-lg font-bold text-slate-800">O Coliseu Seguro</h3>
+                        <div class="bg-amber-50 p-3 rounded-xl mt-2 border border-amber-100">
+                            <p class="text-sm text-slate-700 font-bold"><i class="fa-solid fa-triangle-exclamation text-amber-500"></i> Estratégia Carrinho de Bebé:</p>
+                            <p class="text-sm text-slate-600">Não entrem no Coliseu ou Fórum Romano. É exaustivo (degraus altos, pedra quente). Passeiem pela larga e plana rua <strong>Via dei Fori Imperiali</strong>. Tira-se fotos perfeitas sem stress e sem pagar nada.</p>
+                        </div>
+                    </div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-orange-500"><i class="fa-solid fa-pizza-slice"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">13:00 - Almoço & Descanso</span>
+                        <h3 class="text-lg font-bold text-slate-800">Almoço & Sesta Italiana</h3>
+                        <p class="text-sm text-slate-600 mt-1">Almocem em uma Trattoria. Entre 14h e 16h, os italianos fazem a "Pausa" (sesta). Façam o mesmo! Descansem no hotel ou coloquem a menina a dormir no carrinho enquanto tomam um café.</p>
+                    </div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-blue"><i class="fa-solid fa-water"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">16:30 - Fim de Tarde</span>
+                        <h3 class="text-lg font-bold text-slate-800">Fontana di Trevi & Gelato</h3>
+                        <p class="text-sm text-slate-600 mt-1">Caminhada: Monumento a Vittorio Emanuele II ➔ <strong>Fontana di Trevi</strong> (joguem a moeda) ➔ <strong>Pantheon</strong> (a praça é animada e plana). Termine o dia comprando gelatos artesanais para a família.</p>
+                    </div>
+
+                    <div class="day-separator"><div class="day-badge">27 de Maio (Quarta-feira)</div></div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-yellow"><i class="fa-solid fa-cross"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">10:00 - Manhã</span>
+                        <h3 class="text-lg font-bold text-slate-800">Vaticano & Praça de S. Pedro</h3>
+                        <p class="text-sm text-slate-600 mt-1">Vão direto à <strong>Praça de São Pedro</strong> (Basílica). A praça é imensa, cercada de colunas e maravilhosa para passear. É visualmente impactante e sem carros.</p>
+                    </div>
+                    
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-green"><i class="fa-solid fa-bridge-water"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">15:00 - Tarde</span>
+                        <h3 class="text-lg font-bold text-slate-800">Castel Sant'Angelo</h3>
+                        <p class="text-sm text-slate-600 mt-1">Após o almoço, caminhem pelo corredor monumental (Via della Conciliazione) em direção ao <strong>Castel Sant'Angelo</strong> e atravessem a belíssima ponte de anjos sobre o Rio Tibre.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- CONTENT: VERONA -->
+        <!-- ========================================== -->
+        <div id="verona" class="tab-content">
+            <div class="glass-card rounded-3xl p-5 md:p-6 shadow-lg mb-6 border-t-4 border-pink-500">
+                <h2 class="text-2xl font-bold text-slate-800 mb-2">O Charme Romântico</h2>
+                <p class="text-slate-500 text-sm mb-6">Ruas Planas e Elegantes (28 a 30/05)</p>
+                
+                <div class="timeline-container">
+                    <div class="timeline-line"></div>
+                    
+                    <!-- Dia 28 -->
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-slate-800"><i class="fa-solid fa-train"></i></div>
+                        <span class="text-xs font-bold text-pink-500 uppercase tracking-wider">28 de Maio (Quinta)</span>
+                        <h3 class="text-lg font-bold text-slate-800">Chegada em Verona</h3>
+                        <p class="text-sm text-slate-600 mt-1"><strong>Logística (Alta Velocidade):</strong> Comboios da <em>Trenitalia</em> ou <em>Italo</em> são extremamente confortáveis. Peguem um táxi da estação Porta Nuova ao hotel.</p>
+                        <p class="text-sm text-slate-600 mt-2"><strong>Fim de Tarde:</strong> Passeio pela espetacular praça principal (<strong>Piazza Bra</strong>), onde fica a imensa Arena de Verona (Coliseu bem conservado).</p>
+                    </div>
+
+                    <div class="day-separator"><div class="day-badge">29 de Maio (Sexta-feira)</div></div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-yellow"><i class="fa-solid fa-bag-shopping"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">10:00 - Manhã</span>
+                        <h3 class="text-lg font-bold text-slate-800">Via Mazzini & Compras</h3>
+                        <p class="text-sm text-slate-600 mt-1">Caminhada pela rua de comércio mais elegante da cidade, toda calçada em mármore. Perfeito para vitrines e o carrinho de bebé desliza fácil.</p>
+                    </div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-pink-500"><i class="fa-solid fa-heart"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">11:30 - Destaque</span>
+                        <h3 class="text-lg font-bold text-slate-800">Casa de Julieta</h3>
+                        <p class="text-sm text-slate-600 mt-1">Entrem no pátio gratuitamente para ver a varanda famosa de Shakespeare e a estátua de Julieta. É rápido e um clássico fotográfico.</p>
+                    </div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-orange-500"><i class="fa-solid fa-wine-glass"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">13:30 às 17:00</span>
+                        <h3 class="text-lg font-bold text-slate-800">Piazza delle Erbe & Castelvecchio</h3>
+                        <p class="text-sm text-slate-600 mt-1">Almocem na vibrante <strong>Piazza delle Erbe</strong>. À tarde, enquanto a menina dorme a sesta, caminhem até à Ponte Scaligero (Castelvecchio) que atravessa o rio em tijolos medievais.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- CONTENT: MILÃO -->
+        <!-- ========================================== -->
+        <div id="milao" class="tab-content">
+            <div class="glass-card rounded-3xl p-5 md:p-6 shadow-lg mb-6 border-t-4 border-gray-600">
+                <h2 class="text-2xl font-bold text-slate-800 mb-2">A Capital da Moda</h2>
+                <p class="text-slate-500 text-sm mb-6">Alta Costura, Duomo & Despedida (30/05 a 01/06)</p>
+                
+                <div class="timeline-container">
+                    <div class="timeline-line"></div>
+                    
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-slate-800"><i class="fa-solid fa-train-subway"></i></div>
+                        <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">30 de Maio (Sábado)</span>
+                        <h3 class="text-lg font-bold text-slate-800">Deslocamento Rápido</h3>
+                        <p class="text-sm text-slate-600 mt-1">A viagem de comboio de Verona a Milão leva pouco mais de 1 hora. Chegada à monumental estação <strong>Milano Centrale</strong>. Táxi para o hotel. Tarde livre na Corso Buenos Aires.</p>
+                    </div>
+
+                    <div class="day-separator"><div class="day-badge">31 de Maio (Domingo)</div></div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-yellow"><i class="fa-solid fa-camera"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">09:30 - Manhã</span>
+                        <h3 class="text-lg font-bold text-slate-800">Piazza del Duomo</h3>
+                        <p class="text-sm text-slate-600 mt-1">O cartão postal máximo. Praça gigante, totalmente plana. A sua filha vai encantar-se com os pombos. Contemplem a magnífica catedral gótica (por fora).</p>
+                    </div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-gray-600"><i class="fa-solid fa-gem"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">11:30 - Manhã</span>
+                        <h3 class="text-lg font-bold text-slate-800">Galleria Vittorio Emanuele II</h3>
+                        <p class="text-sm text-slate-600 mt-1">Logo ao lado do Duomo. A galeria de compras mais antiga de Itália, com teto de vidro e piso deslumbrante. Procurem o símbolo do "Touro" no chão para a tradição de pisar nele.</p>
+                    </div>
+                    
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-green"><i class="fa-solid fa-tree"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">14:00 - Tarde (Sesta)</span>
+                        <h3 class="text-lg font-bold text-slate-800">Bairro de Brera</h3>
+                        <p class="text-sm text-slate-600 mt-1">Almocem (provem os famosos Panzerottis no <em>Luini</em>) e sigam caminhando devagar para a região de Brera. Ruas de calçada, floridas, cheias de arte e cafés.</p>
+                    </div>
+
+                    <div class="day-separator"><div class="day-badge">01 de Junho (A Grande Transição)</div></div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-orange-500"><i class="fa-brands fa-fort-awesome"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">10:00 - Manhã</span>
+                        <h3 class="text-lg font-bold text-slate-800">Check-out & Castelo</h3>
+                        <p class="text-sm text-slate-600 mt-1">Deixem as malas no guarda-volumes do hotel. Vão ao <strong>Castello Sforzesco</strong> e ao <strong>Parque Sempione</strong> (logo atrás). Tem um ótimo parque infantil (Aree Gioco) e muito verde.</p>
+                    </div>
+                    
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-blue"><i class="fa-solid fa-suitcase"></i></div>
+                        <span class="text-xs font-bold text-brand-blue uppercase tracking-wider">22:36 - Viagem Noturna</span>
+                        <h3 class="text-lg font-bold text-slate-800">O Trem para Paris</h3>
+                        <p class="text-sm text-slate-600 mt-1">Noite longa: embarque na <em>Milano Centrale</em> com destino a França. Organizem lanches, água e garantam o tablet descarregado para a pequena dormir confortável no trajeto.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- CONTENT: PARIS -->
+        <!-- ========================================== -->
+        <div id="paris" class="tab-content">
+            <div class="glass-card rounded-3xl p-5 md:p-6 shadow-lg mb-6 border-t-4 border-brand-blue">
+                <h2 class="text-2xl font-bold text-slate-800 mb-2">O Sonho Parisiense</h2>
+                <p class="text-slate-500 text-sm mb-6">Locomoção sem escadas e ícones franceses (01 a 04/06)</p>
+                
+                <div class="timeline-container">
+                    <div class="timeline-line"></div>
+                    
+                    <!-- Chegada (Noite de 01/06) -->
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-slate-800"><i class="fa-solid fa-moon"></i></div>
+                        <span class="text-xs font-bold text-brand-blue uppercase tracking-wider">01 de Junho (Noite)</span>
+                        <h3 class="text-lg font-bold text-slate-800">Chegada & Mercure</h3>
+                        <p class="text-sm text-slate-600 mt-1"><strong>Logística 22h36:</strong> Ao descer na Gare de Lyon, ignorem o Metro. Abram o app <strong>G7 Taxi ou Uber</strong>. Viagem rápida de 8 min até ao Mercure Bastille Marais. Check-in direto e banho.</p>
+                    </div>
+
+                    <div class="day-separator"><div class="day-badge">02 de Junho (Terça-feira)</div></div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-yellow"><i class="fa-solid fa-bus"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">09:30 - Logística</span>
+                        <h3 class="text-lg font-bold text-slate-800">Fuga do Metro (Ônibus 69)</h3>
+                        <p class="text-sm text-slate-600 mt-1">Compre croissants na padaria próxima. Encontrem a paragem da <strong>Linha 69 (Autocarro/Ônibus)</strong> que cruza a cidade inteira. Desçam na paragem <em>Champ de Mars</em>. Use o celular (Navigo Apple Pay) para pagar.</p>
+                    </div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-blue"><i class="fa-solid fa-camera"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">10:30 - Manhã</span>
+                        <h3 class="text-lg font-bold text-slate-800">O Gramado da Torre Eiffel</h3>
+                        <p class="text-sm text-slate-600 mt-1">Muitas fotos. A menina pode correr livremente nos gramados do <strong>Champ de Mars</strong> com a torre ao fundo. Tem um parque infantil fantástico ali perto.</p>
+                    </div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-green"><i class="fa-solid fa-ship"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">15:30 - Tarde (Após Sesta)</span>
+                        <h3 class="text-lg font-bold text-slate-800">Barco pelo Rio Sena</h3>
+                        <p class="text-sm text-slate-600 mt-1">Caminhem até a beira do rio nos pés da Torre. Comprem bilhete para o <strong>Bateaux Parisiens</strong>. É 1 hora de passeio lindo, onde vocês descansam as pernas e a criança não cansa. Regresso de Uber.</p>
+                    </div>
+
+                    <div class="day-separator"><div class="day-badge">03 de Junho (Quarta-feira)</div></div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-pink"><i class="fa-solid fa-store"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">10:00 - Manhã</span>
+                        <h3 class="text-lg font-bold text-slate-800">Le Marais e Vosges</h3>
+                        <p class="text-sm text-slate-600 mt-1">Caminhem desde o vosso hotel. Visitem a charmosa <strong>Place des Vosges</strong> (a mais antiga de Paris, gramado e fontes). Almocem o tradicional Falafel no <em>L'As du Fallafel</em> no coração do Marais.</p>
+                    </div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-blue"><i class="fa-brands fa-fort-awesome"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">15:00 - Tarde</span>
+                        <h3 class="text-lg font-bold text-slate-800">Louvre & Tulherias</h3>
+                        <p class="text-sm text-slate-600 mt-1">Peguem um táxi até o pátio central do <strong>Museu do Louvre</strong>. Vejam as pirâmides de vidro por fora e sigam para o imenso <strong>Jardim das Tulherias</strong>. Objetivo principal para a filha: O carrossel antigo, que fica na beira do parque!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- CONTENT: DISNEY -->
+        <!-- ========================================== -->
+        <div id="disney" class="tab-content">
+            <div class="glass-card rounded-3xl p-5 md:p-6 shadow-lg mb-6 border-t-4 border-brand-pink">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fa-solid fa-wand-magic-sparkles text-6xl text-brand-pink"></i></div>
+                <h2 class="text-2xl font-bold text-slate-800 mb-2 relative z-10">A Magia</h2>
+                <p class="text-slate-500 text-sm mb-6 relative z-10">Fantasyland e Personagens (04 a 05/06)</p>
+                
+                <div class="timeline-container relative z-10">
+                    <div class="timeline-line"></div>
+                    
+                    <!-- Dia 04 -->
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-slate-800"><i class="fa-solid fa-taxi"></i></div>
+                        <span class="text-xs font-bold text-brand-pink uppercase tracking-wider">04 de Junho (O Grande Dia)</span>
+                        <h3 class="text-lg font-bold text-slate-800">Logística de Saída</h3>
+                        <div class="bg-pink-50 p-3 rounded-xl mt-2 border border-pink-100">
+                            <ul class="text-sm text-slate-600 list-disc pl-4 space-y-1">
+                                <li><strong>08:30:</strong> Check-out no Mercure.</li>
+                                <li><strong>09:00:</strong> Esqueçam o comboio com as malas! Peçam um <strong>UberXL</strong> para a Disney (45min).</li>
+                                <li><strong>10:00:</strong> Chegada ao Hotel Disney. Deixem as malas no <em>Guarda-volumes</em>.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-pink"><i class="fa-solid fa-star"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">10:30 - Manhã</span>
+                        <h3 class="text-lg font-bold text-slate-800">Disneyland Park</h3>
+                        <p class="text-sm text-slate-600 mt-1">Direcione-se direto para a <strong>Fantasyland</strong>. É a área dedicada às crianças pequenas: Voo de Peter Pan, Dumbo, e It's a Small World.</p>
+                    </div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-orange-500"><i class="fa-solid fa-utensils"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">13:30 - Almoço</span>
+                        <h3 class="text-lg font-bold text-slate-800">Reserva de Restaurante</h3>
+                        <p class="text-sm text-slate-600 mt-1">Almocem (tendo feito reserva prévia pelo App). Após o almoço, aproveitem o desfile principal (Parade) e comprem o clássico algodão doce enquanto a pequena descansa no carrinho.</p>
+                    </div>
+
+                    <div class="day-separator"><div class="day-badge">05 de Junho (Sexta-feira)</div></div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-purple"><i class="fa-solid fa-film"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">09:30 - Manhã</span>
+                        <h3 class="text-lg font-bold text-slate-800">Walt Disney Studios</h3>
+                        <p class="text-sm text-slate-600 mt-1">Usem o vosso bilhete para o parque ao lado (Studios). Destaque total para a área temática do <strong>Ratatouille</strong> (A atração 3D é incrível para a família).</p>
+                    </div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-slate-800"><i class="fa-solid fa-plane-departure"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">15:30 - Logística de Saída</span>
+                        <h3 class="text-lg font-bold text-slate-800">Partida para o ORLY</h3>
+                        <p class="text-sm text-slate-600 mt-1">Regressem ao hotel, peguem as malas e chamem o vosso Transfer / Uber agendado. <strong>Atenção:</strong> Vão para o Aeroporto ORLY com antecedência para o voo com destino a Lisboa.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- CONTENT: LISBOA 2 -->
+        <!-- ========================================== -->
+        <div id="lisboa2" class="tab-content">
+            <div class="glass-card rounded-3xl p-5 md:p-6 shadow-lg mb-6 border-t-4 border-emerald-600">
+                <h2 class="text-2xl font-bold text-slate-800 mb-2">O Regresso a Casa</h2>
+                <p class="text-slate-500 text-sm mb-6">Desacelerando em Lisboa (05 a 09/06)</p>
+                
+                <div class="timeline-container">
+                    <div class="timeline-line"></div>
+                    
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-slate-800"><i class="fa-solid fa-plane-arrival"></i></div>
+                        <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">05 de Junho (Noite)</span>
+                        <h3 class="text-lg font-bold text-slate-800">Chegada a Portugal</h3>
+                        <p class="text-sm text-slate-600 mt-1">Uber do Aeroporto de Lisboa direto ao hotel. A parte intensa da viagem acabou. Daqui para a frente, o ritmo deve ser lento e relaxante.</p>
+                    </div>
+
+                    <div class="day-separator"><div class="day-badge">06 de Junho (Sábado)</div></div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-blue-500"><i class="fa-solid fa-fish-fins"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">10:00 - Manhã</span>
+                        <h3 class="text-lg font-bold text-slate-800">Oceanário de Lisboa</h3>
+                        <p class="text-sm text-slate-600 mt-1">Vão ao Parque das Nações (zona moderna). Visitem o imenso Oceanário (sucesso absoluto com crianças). A área ao redor é linda para almoçar à beira-rio.</p>
+                    </div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-yellow"><i class="fa-solid fa-cable-car"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">15:00 - Tarde</span>
+                        <h3 class="text-lg font-bold text-slate-800">Teleférico & Passeio</h3>
+                        <p class="text-sm text-slate-600 mt-1">Após a sesta no carrinho, andem no Teleférico ali mesmo no parque. Vista panorâmica, seguro e silencioso.</p>
+                    </div>
+
+                    <div class="day-separator"><div class="day-badge">07 de Junho (Domingo)</div></div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-green"><i class="fa-solid fa-car-side"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">10:30 - Manhã</span>
+                        <h3 class="text-lg font-bold text-slate-800">Alfama de Tuk-Tuk</h3>
+                        <p class="text-sm text-slate-600 mt-1">Para ver a parte antiga (Alfama, Sé e Castelo) <strong>NÃO tentem empurrar carrinho nas ladeiras</strong>. Contratem um "Tuk-Tuk Elétrico" na praça principal. A menina diverte-se muito no ventinho e vocês poupam as pernas.</p>
+                    </div>
+
+                    <div class="day-separator"><div class="day-badge">08 e 09 de Junho</div></div>
+
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-blue"><i class="fa-solid fa-bag-shopping"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Dias Livres</span>
+                        <h3 class="text-lg font-bold text-slate-800">Compras, Bacalhau & Despedida</h3>
+                        <p class="text-sm text-slate-600 mt-1">Usem o dia 8 para ir ao Shopping Colombo ou Amoreiras fechar as malas, e jantem um Bacalhau no bairro. Dia 9: Check-out tranquilo, Uber, e o orgulho de terem liderado uma mega Euro Trip em família!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- JS for Tab Switching -->
+    <script>
+        function showCity(cityId, clickedBtn) {
+            // Esconder todos os conteúdos
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Repor o estilo de todos os botões (estado inativo)
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.className = "tab-btn snap-start shrink-0 bg-white text-slate-500 font-bold py-2 px-5 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50";
+            });
+
+            // Mostrar o conteúdo selecionado
+            document.getElementById(cityId).classList.add('active');
+
+            // Atualizar as cores do botão clicado baseado na cidade
+            if(cityId === 'lisboa1') {
+                clickedBtn.className = "tab-btn snap-start shrink-0 bg-brand-green text-white font-bold py-2 px-5 rounded-2xl shadow-lg transition transform hover:scale-105";
+            } else if (cityId === 'madrid') {
+                clickedBtn.className = "tab-btn snap-start shrink-0 bg-brand-red text-white font-bold py-2 px-5 rounded-2xl shadow-lg transition transform hover:scale-105";
+            } else if (cityId === 'roma') {
+                clickedBtn.className = "tab-btn snap-start shrink-0 bg-amber-600 text-white font-bold py-2 px-5 rounded-2xl shadow-lg transition transform hover:scale-105";
+            } else if (cityId === 'verona') {
+                clickedBtn.className = "tab-btn snap-start shrink-0 bg-pink-500 text-white font-bold py-2 px-5 rounded-2xl shadow-lg transition transform hover:scale-105";
+            } else if (cityId === 'milao') {
+                clickedBtn.className = "tab-btn snap-start shrink-0 bg-gray-600 text-white font-bold py-2 px-5 rounded-2xl shadow-lg transition transform hover:scale-105";
+            } else if (cityId === 'paris') {
+                clickedBtn.className = "tab-btn snap-start shrink-0 bg-brand-blue text-white font-bold py-2 px-5 rounded-2xl shadow-lg transition transform hover:scale-105";
+            } else if (cityId === 'disney') {
+                clickedBtn.className = "tab-btn snap-start shrink-0 bg-brand-pink text-white font-bold py-2 px-5 rounded-2xl shadow-lg transition transform hover:scale-105";
+            } else if (cityId === 'lisboa2') {
+                clickedBtn.className = "tab-btn snap-start shrink-0 bg-emerald-600 text-white font-bold py-2 px-5 rounded-2xl shadow-lg transition transform hover:scale-105";
+            }
+        }
+    </script>
+</body>
+</html>
