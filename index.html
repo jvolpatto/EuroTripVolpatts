@@ -6,6 +6,8 @@
     <title>A Nossa Euro Trip Completa</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Forms Plugin (For better checkboxes) -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
     <!-- Font Awesome para Ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
@@ -48,12 +50,27 @@
         /* Subtle separator for days */
         .day-separator { border-top: 2px dashed #e2e8f0; margin: 2rem 0; padding-top: 2rem; position: relative; }
         .day-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: white; padding: 0 15px; font-weight: bold; color: #64748b; border: 2px dashed #e2e8f0; border-radius: 20px; font-size: 0.85rem;}
+
+        /* Custom Checkbox strikethrough effect */
+        input[type="checkbox"]:checked + span { text-decoration: line-through; color: #94a3b8; }
+
+        @media print {
+            body { background: white; }
+            .print-hidden { display: none !important; }
+            .tab-content { display: block !important; opacity: 1 !important; page-break-after: always; }
+            .glass-card { border: 1px solid #cbd5e1; box-shadow: none; break-inside: avoid; }
+        }
     </style>
 </head>
-<body class="text-slate-800 antialiased pb-20">
+<body class="text-slate-800 antialiased pb-24">
+
+    <!-- Floating Print Button -->
+    <button onclick="printItinerary()" class="print-hidden fixed bottom-6 right-6 bg-slate-800 text-white rounded-full w-14 h-14 shadow-2xl hover:bg-slate-700 transition transform hover:scale-110 z-50 flex items-center justify-center">
+        <i class="fa-solid fa-print text-xl"></i>
+    </button>
 
     <!-- Header / Hero -->
-    <header class="pt-10 pb-6 px-4 text-center max-w-3xl mx-auto">
+    <header class="pt-10 pb-6 px-4 text-center max-w-3xl mx-auto print-hidden">
         <div class="inline-block p-2 bg-white rounded-full shadow-md mb-3">
             <i class="fa-solid fa-earth-europe text-brand-blue text-2xl px-2"></i>
             <i class="fa-solid fa-baby-carriage text-brand-pink text-xl px-2"></i>
@@ -69,9 +86,9 @@
     <!-- Main Container -->
     <main class="max-w-3xl mx-auto px-4">
         
-        <!-- Navigation Tabs (Updated layout to wrap items so all 8 are visible) -->
-        <nav class="flex flex-wrap justify-center gap-2 md:gap-3 mb-6 pb-4" id="tabs">
-            <button onclick="showCity('lisboa1', this)" class="tab-btn bg-brand-green text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105">
+        <!-- Navigation Tabs -->
+        <nav class="flex flex-wrap justify-center gap-2 md:gap-3 mb-6 pb-4 print-hidden" id="tabs">
+            <button onclick="showCity('lisboa1', this)" class="tab-btn bg-brand-green text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105 active-tab">
                 <div class="text-[10px] sm:text-xs font-normal opacity-80">20 a 23 Mai</div>
                 <i class="fa-solid fa-paste"></i> Lisboa I
             </button>
@@ -112,7 +129,7 @@
             <div class="glass-card rounded-3xl p-5 md:p-6 shadow-lg mb-6 border-t-4 border-brand-green">
                 <div class="flex justify-between items-start mb-2">
                     <h2 class="text-2xl font-bold text-slate-800">Bloco 1: Lisboa (Operacional)</h2>
-                    <span class="bg-brand-green text-white text-xs font-bold px-2 py-1 rounded-lg">21 a 23/05</span>
+                    <span class="bg-brand-green text-white text-xs font-bold px-2 py-1 rounded-lg print-hidden">21 a 23/05</span>
                 </div>
                 <p class="text-slate-500 text-sm mb-6">Guia rápido para chegada em Portugal, deslocamento ao <strong>ibis Lisboa José Malhoa</strong> e ambientação.</p>
                 
@@ -123,7 +140,9 @@
                     <div class="relative mb-6 pl-8">
                         <div class="timeline-dot bg-slate-800"><i class="fa-solid fa-plane-arrival"></i></div>
                         <span class="text-xs font-bold text-brand-green uppercase tracking-wider">21 de Maio • 11h00</span>
-                        <h3 class="text-lg font-bold text-slate-800">Desembarque e Imigração</h3>
+                        <h3 class="text-lg font-bold text-slate-800">Desembarque e Imigração
+                            <a href="https://maps.google.com/?q=Aeroporto+de+Lisboa" target="_blank" class="print-hidden inline-flex items-center gap-1 ml-2 text-[10px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 px-2 py-1 rounded-full transition"><i class="fa-solid fa-map-location-dot"></i> Mapa</a>
+                        </h3>
                         <p class="text-sm text-slate-600 mt-1"><strong>Logística:</strong> Siga as placas (Chegadas / Passport Control / Exit) ➔ Imigração (tenha em mãos reserva do Ibis e voo de saída 23/05) ➔ Recolha de Bagagem.</p>
                     </div>
 
@@ -143,7 +162,9 @@
                     <div class="relative mb-6 pl-8">
                         <div class="timeline-dot bg-brand-yellow"><i class="fa-solid fa-bell-concierge"></i></div>
                         <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">13h00 às 16h00</span>
-                        <h3 class="text-lg font-bold text-slate-800">Check-in no Hotel & Descanso</h3>
+                        <h3 class="text-lg font-bold text-slate-800">Check-in no Hotel & Descanso
+                            <a href="https://maps.google.com/?q=ibis+Lisboa+Jose+Malhoa" target="_blank" class="print-hidden inline-flex items-center gap-1 ml-2 text-[10px] font-bold bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded-full transition"><i class="fa-solid fa-location-arrow"></i> Navegar</a>
+                        </h3>
                         <p class="text-sm text-slate-600 mt-1"><em>"Temos reserva em nome de Júlio Cesar Volpatto. Podemos deixar as malas guardadas caso o quarto não esteja pronto?"</em><br>Almoço leve e caminhada curta na região sem compromisso à tarde.</p>
                     </div>
 
@@ -201,6 +222,28 @@
                         <span class="text-xs font-bold text-brand-purple uppercase tracking-wider">Informações Úteis</span>
                         <h3 class="text-lg font-bold text-slate-800">Checklists & Frases Práticas</h3>
                         
+                        <!-- Cards de Checklists Interativos -->
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                <h4 class="font-bold text-slate-700 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-check-double text-brand-green mr-1"></i> Antes de sair do Aeroporto</h4>
+                                <ul class="text-xs space-y-3 list-none">
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-green rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-green transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Passaportes conferidos e guardados</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-green rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-green transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">eSIM / Internet do telemóvel a funcionar</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-green rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-green transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Água ou lanche rápido para a pequena</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-green rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-green transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Destino confirmado no App do motorista</span></label></li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                <h4 class="font-bold text-slate-700 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-door-open text-brand-red mr-1"></i> Saída do Hotel (Voo Madrid)</h4>
+                                <ul class="text-xs space-y-3 list-none">
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-red rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-red transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Check-in online feito e bilhetes guardados</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-red rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-red transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Todos os documentos e passaportes separados</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-red rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-red transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Quarto e casa de banho conferidos</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-red rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-red transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Remédios da pequena em local de fácil acesso</span></label></li>
+                                </ul>
+                            </div>
+                        </div>
+                        
                         <!-- Cards de Frases -->
                         <div class="mt-3 bg-purple-50 p-4 rounded-xl border border-purple-100">
                             <h4 class="font-bold text-purple-800 mb-2"><i class="fa-solid fa-comments mr-1"></i> Comunicação Rápida</h4>
@@ -223,28 +266,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Cards de Checklists -->
-                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                                <h4 class="font-bold text-slate-700 text-sm mb-2"><i class="fa-solid fa-check-double text-brand-green mr-1"></i> Antes de sair do Aeroporto</h4>
-                                <ul class="text-xs text-slate-600 space-y-2 list-none">
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Passaportes conferidos e guardados</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> eSIM / Internet do telemóvel a funcionar</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Água ou lanche rápido para a pequena</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Destino confirmado no App do motorista</li>
-                                </ul>
-                            </div>
-                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                                <h4 class="font-bold text-slate-700 text-sm mb-2"><i class="fa-solid fa-door-open text-brand-red mr-1"></i> Saída do Hotel (Voo Madrid)</h4>
-                                <ul class="text-xs text-slate-600 space-y-2 list-none">
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Check-in online feito e bilhetes guardados offline</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Todos os documentos e passaportes separados</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Quarto e casa de banho conferidos (sem esquecimentos)</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Remédios da pequena em local de fácil acesso</li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
@@ -258,7 +279,7 @@
             <div class="glass-card rounded-3xl p-5 md:p-6 shadow-lg mb-6 border-t-4 border-brand-red">
                 <div class="flex justify-between items-start mb-2">
                     <h2 class="text-2xl font-bold text-slate-800">Bloco 2: Madrid (Operacional)</h2>
-                    <span class="bg-brand-red text-white text-xs font-bold px-2 py-1 rounded-lg">23 a 25/05</span>
+                    <span class="bg-brand-red text-white text-xs font-bold px-2 py-1 rounded-lg print-hidden">23 a 25/05</span>
                 </div>
                 <p class="text-slate-500 text-sm mb-6">Guia rápido para chegada, deslocamento ao <strong>Ilunion Suites Madrid</strong>, passeios leves e o grande jogo do Real Madrid.</p>
                 
@@ -269,7 +290,9 @@
                     <div class="relative mb-6 pl-8">
                         <div class="timeline-dot bg-slate-800"><i class="fa-solid fa-plane-arrival"></i></div>
                         <span class="text-xs font-bold text-brand-red uppercase tracking-wider">23 de Maio • 12h40</span>
-                        <h3 class="text-lg font-bold text-slate-800">Chegada a Barajas & Bagagens</h3>
+                        <h3 class="text-lg font-bold text-slate-800">Chegada a Barajas
+                            <a href="https://maps.google.com/?q=Aeropuerto+Adolfo+Suarez+Madrid-Barajas" target="_blank" class="print-hidden inline-flex items-center gap-1 ml-2 text-[10px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 px-2 py-1 rounded-full transition"><i class="fa-solid fa-map-location-dot"></i> Mapa</a>
+                        </h3>
                         <p class="text-sm text-slate-600 mt-1"><strong>Logística:</strong> Siga as placas (Llegadas / Equipajes / Salida). Como já entraram na zona Schengen em Lisboa, não há nova imigração. Apenas recolham as malas (se houver).</p>
                     </div>
 
@@ -289,14 +312,18 @@
                     <div class="relative mb-6 pl-8">
                         <div class="timeline-dot bg-brand-yellow"><i class="fa-solid fa-bed"></i></div>
                         <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">15h00 às 18h30</span>
-                        <h3 class="text-lg font-bold text-slate-800">Check-in, Descanso & Alimentação</h3>
+                        <h3 class="text-lg font-bold text-slate-800">Check-in, Descanso & Alimentação
+                            <a href="https://maps.google.com/?q=Ilunion+Suites+Madrid" target="_blank" class="print-hidden inline-flex items-center gap-1 ml-2 text-[10px] font-bold bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded-full transition"><i class="fa-solid fa-location-arrow"></i> Navegar</a>
+                        </h3>
                         <p class="text-sm text-slate-600 mt-1"><em>"Tenemos una reserva a nombre de Júlio Cesar Volpatto."</em><br>Façam refeições leves perto do hotel e tentem descansar para o grande evento da noite.</p>
                     </div>
 
                     <div class="relative mb-6 pl-8">
                         <div class="timeline-dot bg-brand-red"><i class="fa-solid fa-futbol"></i></div>
                         <span class="text-xs font-bold text-brand-red uppercase tracking-wider">19h00 (Jogo às 21h00)</span>
-                        <h3 class="text-lg font-bold text-slate-800">Operação: Real Madrid!</h3>
+                        <h3 class="text-lg font-bold text-slate-800">Operação: Real Madrid!
+                            <a href="https://maps.google.com/?q=Estadio+Santiago+Bernabeu" target="_blank" class="print-hidden inline-flex items-center gap-1 ml-2 text-[10px] font-bold bg-red-100 hover:bg-red-200 text-red-700 px-2 py-1 rounded-full transition"><i class="fa-solid fa-map-location-dot"></i> Estádio</a>
+                        </h3>
                         <div class="bg-red-50 p-3 rounded-xl mt-2 border border-red-200 border-l-4 border-l-brand-red">
                             <p class="text-sm text-slate-700"><strong>Saída antecipada para o Santiago Bernabéu:</strong></p>
                             <ul class="text-sm text-slate-600 list-disc pl-4 mt-1 space-y-1">
@@ -325,7 +352,9 @@
                     <div class="relative mb-6 pl-8">
                         <div class="timeline-dot bg-brand-green"><i class="fa-solid fa-tree"></i></div>
                         <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Tarde</span>
-                        <h3 class="text-lg font-bold text-slate-800">Sesta & Parque del Retiro</h3>
+                        <h3 class="text-lg font-bold text-slate-800">Sesta & Parque del Retiro
+                            <a href="https://maps.google.com/?q=El+Retiro+Park+Madrid" target="_blank" class="print-hidden inline-flex items-center gap-1 ml-2 text-[10px] font-bold bg-green-100 hover:bg-green-200 text-green-700 px-2 py-1 rounded-full transition"><i class="fa-solid fa-map-location-dot"></i> Parque</a>
+                        </h3>
                         <p class="text-sm text-slate-600 mt-1">Se a pequena estiver cansada, priorizem o <strong>Parque El Retiro</strong> após a sesta. É o pulmão verde da cidade, com barquinhos, e ideal para o carrinho de bebé.</p>
                     </div>
 
@@ -367,6 +396,27 @@
                         <span class="text-xs font-bold text-brand-purple uppercase tracking-wider">Informações Úteis (Espanhol)</span>
                         <h3 class="text-lg font-bold text-slate-800">Checklists & Frases Práticas</h3>
                         
+                        <!-- Cards de Checklists Interativos -->
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                <h4 class="font-bold text-slate-700 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-futbol text-brand-red mr-1"></i> Antes de sair para o Jogo</h4>
+                                <ul class="text-xs space-y-3 list-none">
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-red rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-red transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Bilhetes salvos offline no telemóvel</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-red rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-red transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Bateria do telemóvel a 100% e Power Bank</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-red rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-red transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Casaco ligeiro (a temperatura baixa na saída)</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-red rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-red transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Sem mochilas grandes (facilitam revistas)</span></label></li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                <h4 class="font-bold text-slate-700 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-door-open text-orange-500 mr-1"></i> Saída do Hotel (Voo Roma)</h4>
+                                <ul class="text-xs space-y-3 list-none">
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-orange-500 rounded border-slate-300 mr-2 mt-0.5 focus:ring-orange-500 transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Check-in online feito e bilhetes guardados</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-orange-500 rounded border-slate-300 mr-2 mt-0.5 focus:ring-orange-500 transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Documentos e passaportes separados</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-orange-500 rounded border-slate-300 mr-2 mt-0.5 focus:ring-orange-500 transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Remédios da pequena em local de fácil acesso</span></label></li>
+                                </ul>
+                            </div>
+                        </div>
+
                         <!-- Cards de Frases -->
                         <div class="mt-3 bg-purple-50 p-4 rounded-xl border border-purple-100">
                             <h4 class="font-bold text-purple-800 mb-2"><i class="fa-solid fa-comments mr-1"></i> Comunicação Rápida</h4>
@@ -388,27 +438,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Cards de Checklists -->
-                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                                <h4 class="font-bold text-slate-700 text-sm mb-2"><i class="fa-solid fa-futbol text-brand-red mr-1"></i> Antes de sair para o Jogo</h4>
-                                <ul class="text-xs text-slate-600 space-y-2 list-none">
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-red mr-2 mt-0.5"></i> Bilhetes do Real Madrid salvos offline no telemóvel</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-red mr-2 mt-0.5"></i> Bateria do telemóvel a 100% e Power Bank</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-red mr-2 mt-0.5"></i> Casaco ligeiro (a temperatura baixa na saída)</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-red mr-2 mt-0.5"></i> Sem mochilas grandes (facilitam as revistas de segurança)</li>
-                                </ul>
-                            </div>
-                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                                <h4 class="font-bold text-slate-700 text-sm mb-2"><i class="fa-solid fa-door-open text-orange-500 mr-1"></i> Saída do Hotel (Voo Roma)</h4>
-                                <ul class="text-xs text-slate-600 space-y-2 list-none">
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Check-in online feito e bilhetes guardados</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Todos os documentos e passaportes separados</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Remédios da pequena em local de fácil acesso</li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
@@ -422,7 +451,7 @@
             <div class="glass-card rounded-3xl p-5 md:p-6 shadow-lg mb-6 border-t-4 border-amber-600">
                 <div class="flex justify-between items-start mb-2">
                     <h2 class="text-2xl font-bold text-slate-800">Bloco 3: Roma (Operacional)</h2>
-                    <span class="bg-amber-600 text-white text-xs font-bold px-2 py-1 rounded-lg">25 a 28/05</span>
+                    <span class="bg-amber-600 text-white text-xs font-bold px-2 py-1 rounded-lg print-hidden">25 a 28/05</span>
                 </div>
                 <p class="text-slate-500 text-sm mb-6">Guia rápido para chegada, deslocamento ao <strong>Relais Monti</strong>, roteiro clássico e a Operação Coliseu.</p>
                 
@@ -433,7 +462,9 @@
                     <div class="relative mb-6 pl-8">
                         <div class="timeline-dot bg-slate-800"><i class="fa-solid fa-plane-arrival"></i></div>
                         <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">25 de Maio • 14h05</span>
-                        <h3 class="text-lg font-bold text-slate-800">Chegada a Roma & Bagagens</h3>
+                        <h3 class="text-lg font-bold text-slate-800">Chegada a Roma
+                            <a href="https://maps.google.com/?q=Fiumicino+Airport+Rome" target="_blank" class="print-hidden inline-flex items-center gap-1 ml-2 text-[10px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 px-2 py-1 rounded-full transition"><i class="fa-solid fa-map-location-dot"></i> Mapa</a>
+                        </h3>
                         <p class="text-sm text-slate-600 mt-1"><strong>Logística:</strong> Siga as placas (Arrivi / Ritiro Bagagli / Uscita). Sem imigração (voo Schengen de Madrid). Confirme se o aeroporto é Fiumicino (FCO) ou Ciampino (CIA).</p>
                     </div>
 
@@ -455,7 +486,9 @@
                     <div class="relative mb-6 pl-8">
                         <div class="timeline-dot bg-brand-yellow"><i class="fa-solid fa-bed"></i></div>
                         <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">16h30 às 18h00</span>
-                        <h3 class="text-lg font-bold text-slate-800">Check-in, Descanso & Ambientação</h3>
+                        <h3 class="text-lg font-bold text-slate-800">Check-in & Ambientação
+                            <a href="https://maps.google.com/?q=Relais+Monti+Rome" target="_blank" class="print-hidden inline-flex items-center gap-1 ml-2 text-[10px] font-bold bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded-full transition"><i class="fa-solid fa-location-arrow"></i> Navegar</a>
+                        </h3>
                         <p class="text-sm text-slate-600 mt-1"><em>"Abbiamo una prenotazione a nome di Júlio Cesar Volpatto."</em><br>Check-in, banho e uma caminhada muito curta pela região di Monti à noite para o primeiro jantar e gelato.</p>
                     </div>
 
@@ -479,13 +512,15 @@
                     <!-- Coliseu 27/05 -->
                     <div class="relative mb-6 pl-8">
                         <div class="timeline-dot bg-amber-600"><i class="fa-brands fa-vimeo-v"></i></div>
-                        <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">16h15 - Ingresso Coliseu</span>
-                        <h3 class="text-lg font-bold text-slate-800">Operação: Coliseu</h3>
+                        <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">16h15 - Ingresso</span>
+                        <h3 class="text-lg font-bold text-slate-800">Operação: Coliseu
+                            <a href="https://maps.google.com/?q=Colosseum+Rome" target="_blank" class="print-hidden inline-flex items-center gap-1 ml-2 text-[10px] font-bold bg-amber-100 hover:bg-amber-200 text-amber-700 px-2 py-1 rounded-full transition"><i class="fa-solid fa-map-location-dot"></i> Mapa</a>
+                        </h3>
                         <div class="bg-amber-50 p-3 rounded-xl mt-2 border border-amber-200 border-l-4 border-l-amber-600">
                             <p class="text-sm text-slate-700"><strong>Logística de Saída:</strong></p>
                             <ul class="text-sm text-slate-600 list-disc pl-4 mt-1 space-y-1">
                                 <li>Almocem cedo. Saiam do hotel, o mais tardar, às <strong>15h15</strong> (com criança e calor, a antecedência é vital).</li>
-                                <li>Levem os bilhetes offline, passaportes e documenti de acessibilidade (se aplicável para entrada gratuita).</li>
+                                <li>Levem os bilhetes offline, passaportes e documenti de acessibilidade (se aplicável).</li>
                                 <li>Evitem usar carrinhos muito grandes devido aos degraus.</li>
                             </ul>
                         </div>
@@ -497,7 +532,9 @@
                     <div class="relative mb-6 pl-8">
                         <div class="timeline-dot bg-brand-red"><i class="fa-solid fa-train"></i></div>
                         <span class="text-xs font-bold text-brand-red uppercase tracking-wider">08h30 - Operação de Saída</span>
-                        <h3 class="text-lg font-bold text-slate-800">Saída para Verona (Comboio 09h50)</h3>
+                        <h3 class="text-lg font-bold text-slate-800">Saída para Verona (Comboio 09h50)
+                            <a href="https://maps.google.com/?q=Roma+Termini" target="_blank" class="print-hidden inline-flex items-center gap-1 ml-2 text-[10px] font-bold bg-red-100 hover:bg-red-200 text-red-700 px-2 py-1 rounded-full transition"><i class="fa-solid fa-map-location-dot"></i> Estação</a>
+                        </h3>
                         <div class="bg-red-50 p-3 rounded-xl mt-2 border border-red-100">
                             <ul class="text-sm text-slate-600 list-disc pl-4 space-y-1">
                                 <li>Saiam do hotel às <strong>08h30</strong>. Se as malas estiverem pesadas, peçam um Uber curto ou Táxi até a estação.</li>
@@ -514,11 +551,11 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
                             <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
                                 <span class="text-xs font-bold text-slate-700"><i class="fa-solid fa-wifi"></i> App / Internet Falhou</span>
-                                <p class="text-xs text-slate-600 mt-1">Conecte ao Wi-Fi. Se o Uber/Carro não vier, non caminhe sem direção com malas. Use Táxi Oficial Branco. Se a mala não vier: <em>"Il mio bagaglio non è arrivato."</em></p>
+                                <p class="text-xs text-slate-600 mt-1">Conecte ao Wi-Fi. Se o Uber/Carro não vier, non caminhe sem direção com malas. Use Táxi Oficial Branco. Se a mala non vier: <em>"Il mio bagaglio non è arrivato."</em></p>
                             </div>
                             <div class="bg-orange-50 p-3 rounded-xl border border-orange-200">
                                 <span class="text-xs font-bold text-orange-700"><i class="fa-solid fa-clock"></i> Atraso no Comboio</span>
-                                <p class="text-xs text-slate-600 mt-1">Vão direto para a estação Roma Termini senza paragens. Localizem o painel amarelo e procurem pelo "Binario" imediatamente.</p>
+                                <p class="text-xs text-slate-600 mt-1">Vão direto para a estação Roma Termini senza paragens. Localizem o painel amarelo e procurem pelo "Binario" immediatamente.</p>
                             </div>
                         </div>
                     </div>
@@ -529,6 +566,25 @@
                         <span class="text-xs font-bold text-brand-purple uppercase tracking-wider">Informações Úteis (Italiano)</span>
                         <h3 class="text-lg font-bold text-slate-800">Checklists & Frases Práticas</h3>
                         
+                        <!-- Cards de Checklists Interativos -->
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                <h4 class="font-bold text-slate-700 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-building-columns text-amber-600 mr-1"></i> Antes do Coliseu</h4>
+                                <ul class="text-xs space-y-3 list-none">
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-amber-600 rounded border-slate-300 mr-2 mt-0.5 focus:ring-amber-600 transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Bilhetes salvos offline no telemóvel</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-amber-600 rounded border-slate-300 mr-2 mt-0.5 focus:ring-amber-600 transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Passaportes e laudo/comprovação na bolsa</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-amber-600 rounded border-slate-300 mr-2 mt-0.5 focus:ring-amber-600 transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Bateria a 100%, Power Bank e Água</span></label></li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                <h4 class="font-bold text-slate-700 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-train text-brand-red mr-1"></i> Saída (Roma Termini)</h4>
+                                <ul class="text-xs space-y-3 list-none">
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-red rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-red transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Bilhetes de comboio salvos offline</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-red rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-red transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Bagagens organizadas na noite anterior</span></label></li>
+                                </ul>
+                            </div>
+                        </div>
+
                         <!-- Cards de Frases -->
                         <div class="mt-3 bg-purple-50 p-4 rounded-xl border border-purple-100">
                             <h4 class="font-bold text-purple-800 mb-2"><i class="fa-solid fa-comments mr-1"></i> Comunicação Rápida</h4>
@@ -552,27 +608,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Cards de Checklists -->
-                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                                <h4 class="font-bold text-slate-700 text-sm mb-2"><i class="fa-solid fa-building-columns text-amber-600 mr-1"></i> Antes do Coliseu</h4>
-                                <ul class="text-xs text-slate-600 space-y-2 list-none">
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Bilhetes salvos offline no telemóvel</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Passaportes e laudo/comprovação (se aplicável)</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Bateria do telemóvel a 100%, Power Bank e Água</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Chegar à região com margem (antes das 16h15)</li>
-                                </ul>
-                            </div>
-                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                                <h4 class="font-bold text-slate-700 text-sm mb-2"><i class="fa-solid fa-train text-brand-red mr-1"></i> Saída do Hotel (Verona)</h4>
-                                <ul class="text-xs text-slate-600 space-y-2 list-none">
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Bilhetes de comboio salvos offline</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Bagagens organizadas na noite anterior</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Estação confirmada: <strong>Roma Termini</strong></li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
@@ -586,7 +621,7 @@
             <div class="glass-card rounded-3xl p-5 md:p-6 shadow-lg mb-6 border-t-4 border-pink-500">
                 <div class="flex justify-between items-start mb-2">
                     <h2 class="text-2xl font-bold text-slate-800">Bloco 4: Verona (Operacional)</h2>
-                    <span class="bg-pink-500 text-white text-xs font-bold px-2 py-1 rounded-lg">28 a 30/05</span>
+                    <span class="bg-pink-500 text-white text-xs font-bold px-2 py-1 rounded-lg print-hidden">28 a 30/05</span>
                 </div>
                 <p class="text-slate-500 text-sm mb-4">Guia rápido para chegada, roteiro leve e saída para Milão a partir do <strong>Relais Empire</strong>.</p>
 
@@ -609,7 +644,9 @@
                     <div class="relative mb-6 pl-8">
                         <div class="timeline-dot bg-slate-800"><i class="fa-solid fa-train"></i></div>
                         <span class="text-xs font-bold text-pink-500 uppercase tracking-wider">28 de Maio • 13h10</span>
-                        <h3 class="text-lg font-bold text-slate-800">Chegada a Verona Porta Nuova</h3>
+                        <h3 class="text-lg font-bold text-slate-800">Chegada a Verona Porta Nuova
+                            <a href="https://maps.google.com/?q=Verona+Porta+Nuova" target="_blank" class="print-hidden inline-flex items-center gap-1 ml-2 text-[10px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 px-2 py-1 rounded-full transition"><i class="fa-solid fa-map-location-dot"></i> Estação</a>
+                        </h3>
                         <p class="text-sm text-slate-600 mt-1"><strong>Logística:</strong> Desça do comboio (trem) com calma, verifique todos os pertences e siga as placas de <strong>Uscita / Taxi / Bus</strong>. Priorize os elevadores com as malas e o carrinho.</p>
                     </div>
 
@@ -617,7 +654,9 @@
                     <div class="relative mb-6 pl-8">
                         <div class="timeline-dot bg-brand-blue"><i class="fa-solid fa-car"></i></div>
                         <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">13h40 às 17h00</span>
-                        <h3 class="text-lg font-bold text-slate-800">Transporte, Check-in & Sesta</h3>
+                        <h3 class="text-lg font-bold text-slate-800">Transporte, Check-in & Sesta
+                            <a href="https://maps.google.com/?q=Relais+Empire+Verona" target="_blank" class="print-hidden inline-flex items-center gap-1 ml-2 text-[10px] font-bold bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded-full transition"><i class="fa-solid fa-location-arrow"></i> Navegar</a>
+                        </h3>
                         <div class="bg-blue-50 p-3 rounded-xl mt-2 border border-blue-100">
                             <ul class="text-sm text-slate-600 list-disc pl-4 space-y-1">
                                 <li><strong>Transporte (Plano A):</strong> Táxi oficial da estação ou App direto para o <strong>Relais Empire</strong> (Corso Porta Nuova 22).</li>
@@ -684,6 +723,25 @@
                         <span class="text-xs font-bold text-brand-purple uppercase tracking-wider">Informações Úteis (Italiano)</span>
                         <h3 class="text-lg font-bold text-slate-800">Checklists & Frases Práticas</h3>
                         
+                        <!-- Cards de Checklists Interativos -->
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                <h4 class="font-bold text-slate-700 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-train-tram text-pink-500 mr-1"></i> Ao chegar em Verona</h4>
+                                <ul class="text-xs space-y-3 list-none">
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-pink-500 rounded border-slate-300 mr-2 mt-0.5 focus:ring-pink-500 transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Conferir mochilas e carrinho no comboio</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-pink-500 rounded border-slate-300 mr-2 mt-0.5 focus:ring-pink-500 transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Endereço do Relais Empire salvo offline</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-pink-500 rounded border-slate-300 mr-2 mt-0.5 focus:ring-pink-500 transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Chamar Táxi/App para evitar as pedras</span></label></li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                <h4 class="font-bold text-slate-700 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-door-open text-brand-red mr-1"></i> Saída (Milano Centrale)</h4>
+                                <ul class="text-xs space-y-3 list-none">
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-red rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-red transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Bilhetes de comboio (14h32) offline</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-red rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-red transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Alarmes programados para almoçar cedo</span></label></li>
+                                </ul>
+                            </div>
+                        </div>
+
                         <!-- Cards de Frases -->
                         <div class="mt-3 bg-purple-50 p-4 rounded-xl border border-purple-100">
                             <h4 class="font-bold text-purple-800 mb-2"><i class="fa-solid fa-comments mr-1"></i> Comunicação Rápida</h4>
@@ -706,26 +764,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Cards de Checklists -->
-                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                                <h4 class="font-bold text-slate-700 text-sm mb-2"><i class="fa-solid fa-train-tram text-pink-500 mr-1"></i> Ao chegar em Verona</h4>
-                                <ul class="text-xs text-slate-600 space-y-2 list-none">
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Conferir se tirou tudo do comboio (Mochilas e Carrinho)</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Endereço do <strong>Relais Empire</strong> salvo offline</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Chamar Táxi/App para evitar as pedras com as malas</li>
-                                </ul>
-                            </div>
-                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                                <h4 class="font-bold text-slate-700 text-sm mb-2"><i class="fa-solid fa-door-open text-brand-red mr-1"></i> Saída do Hotel (Para Milão)</h4>
-                                <ul class="text-xs text-slate-600 space-y-2 list-none">
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Bilhetes de comboio (14h32) salvos offline</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Destino confirmado: <strong>Milano Centrale</strong></li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Alarmes programados para almoçar cedo</li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
@@ -739,7 +777,7 @@
             <div class="glass-card rounded-3xl p-5 md:p-6 shadow-lg mb-6 border-t-4 border-gray-600">
                 <div class="flex justify-between items-start mb-2">
                     <h2 class="text-2xl font-bold text-slate-800">Bloco 5: Milão (Operacional)</h2>
-                    <span class="bg-gray-600 text-white text-xs font-bold px-2 py-1 rounded-lg">30/05 a 01/06</span>
+                    <span class="bg-gray-600 text-white text-xs font-bold px-2 py-1 rounded-lg print-hidden">30/05 a 01/06</span>
                 </div>
                 <p class="text-slate-500 text-sm mb-6">Guia rápido para chegada em Milano Centrale, deslocamento ao <strong>Doria Grand Hotel</strong>, compras e saída internacional para Paris.</p>
                 
@@ -750,7 +788,9 @@
                     <div class="relative mb-6 pl-8">
                         <div class="timeline-dot bg-slate-800"><i class="fa-solid fa-train-subway"></i></div>
                         <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">30 de Maio • 15h45</span>
-                        <h3 class="text-lg font-bold text-slate-800">Chegada a Milano Centrale</h3>
+                        <h3 class="text-lg font-bold text-slate-800">Chegada a Milano Centrale
+                            <a href="https://maps.google.com/?q=Milano+Centrale+Railway+Station" target="_blank" class="print-hidden inline-flex items-center gap-1 ml-2 text-[10px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 px-2 py-1 rounded-full transition"><i class="fa-solid fa-map-location-dot"></i> Estação</a>
+                        </h3>
                         <p class="text-sm text-slate-600 mt-1"><strong>Logística:</strong> Desça do comboio vindo de Verona con atenção aos pertences. A estação è imensa e movimentada. Siga as placas <strong>Uscita / Taxi / Metro</strong>.</p>
                     </div>
 
@@ -772,7 +812,9 @@
                     <div class="relative mb-6 pl-8">
                         <div class="timeline-dot bg-brand-yellow"><i class="fa-solid fa-bed"></i></div>
                         <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">16h30 às 18h00</span>
-                        <h3 class="text-lg font-bold text-slate-800">Check-in, Descanso & Jantar</h3>
+                        <h3 class="text-lg font-bold text-slate-800">Check-in, Descanso & Jantar
+                            <a href="https://maps.google.com/?q=Doria+Grand+Hotel+Milan" target="_blank" class="print-hidden inline-flex items-center gap-1 ml-2 text-[10px] font-bold bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded-full transition"><i class="fa-solid fa-location-arrow"></i> Navegar</a>
+                        </h3>
                         <p class="text-sm text-slate-600 mt-1"><em>"Abbiamo una prenotazione a nome di Júlio Cesar Volpatto."</em><br>Após o check-in, recomendo uma caminhada leve pela Corso Buenos Aires ou jantar prossimo ao hotel para fechar o dia.</p>
                     </div>
 
@@ -808,7 +850,7 @@
                     <div class="relative mb-6 pl-8">
                         <div class="timeline-dot bg-brand-red"><i class="fa-solid fa-plane-departure"></i></div>
                         <span class="text-xs font-bold text-brand-red uppercase tracking-wider">14h15 - Operação de Saída</span>
-                        <h3 class="text-lg font-bold text-slate-800">Comboio Internacional para Paris (15h48)</h3>
+                        <h3 class="text-lg font-bold text-slate-800">Comboio Internacional (15h48)</h3>
                         <div class="bg-red-50 p-3 rounded-xl mt-2 border border-red-100 border-l-4 border-l-brand-red">
                             <ul class="text-sm text-slate-600 list-disc pl-4 space-y-1">
                                 <li>Voltem ao hotel para apanhar as malas e saiam para a estação Milano Centrale às <strong>14h15</strong>.</li>
@@ -841,6 +883,24 @@
                         <span class="text-xs font-bold text-brand-purple uppercase tracking-wider">Informações Úteis (Italiano)</span>
                         <h3 class="text-lg font-bold text-slate-800">Checklists & Frases Práticas</h3>
                         
+                        <!-- Cards de Checklists Interativos -->
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                <h4 class="font-bold text-slate-700 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-train-tram text-gray-500 mr-1"></i> Ao chegar a Milão</h4>
+                                <ul class="text-xs space-y-3 list-none">
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-gray-600 rounded border-slate-300 mr-2 mt-0.5 focus:ring-gray-600 transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Conferir malas e carrinho ao sair do comboio</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-gray-600 rounded border-slate-300 mr-2 mt-0.5 focus:ring-gray-600 transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Endereço do Doria Grand Hotel offline</span></label></li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                <h4 class="font-bold text-slate-700 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-earth-europe text-brand-blue mr-1"></i> Saída (Para Paris)</h4>
+                                <ul class="text-xs space-y-3 list-none">
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-blue rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-blue transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Bilhetes de comboio (15h48) salvos offline</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-blue rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-blue transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Água e snacks comprados (chegada tardia!)</span></label></li>
+                                </ul>
+                            </div>
+                        </div>
+
                         <!-- Cards de Frases -->
                         <div class="mt-3 bg-purple-50 p-4 rounded-xl border border-purple-100">
                             <h4 class="font-bold text-purple-800 mb-2"><i class="fa-solid fa-comments mr-1"></i> Comunicação Rápida</h4>
@@ -863,26 +923,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Cards de Checklists -->
-                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                                <h4 class="font-bold text-slate-700 text-sm mb-2"><i class="fa-solid fa-train-tram text-gray-500 mr-1"></i> Ao chegar a Milão</h4>
-                                <ul class="text-xs text-slate-600 space-y-2 list-none">
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Conferir malas, mochilas e carrinho ao sair do comboio</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Endereço do <strong>Doria Grand Hotel</strong> salvo offline</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Chamar Uber/Táxi (ou preparar-se para caminhar se leves)</li>
-                                </ul>
-                            </div>
-                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                                <h4 class="font-bold text-slate-700 text-sm mb-2"><i class="fa-solid fa-earth-europe text-brand-blue mr-1"></i> Saída do Hotel (Para Paris)</h4>
-                                <ul class="text-xs text-slate-600 space-y-2 list-none">
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Bilhetes de comboio (15h48) salvos offline</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Água e snacks comprados para a viagem (chegada tardia!)</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Rota do hotel de Paris já vista (Uber de Gare de Lyon)</li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
@@ -896,7 +936,7 @@
             <div class="glass-card rounded-3xl p-5 md:p-6 shadow-lg mb-6 border-t-4 border-brand-blue">
                 <div class="flex justify-between items-start mb-2">
                     <h2 class="text-2xl font-bold text-slate-800">Bloco 6: Paris (Operacional)</h2>
-                    <span class="bg-brand-blue text-white text-xs font-bold px-2 py-1 rounded-lg">01 a 04/06</span>
+                    <span class="bg-brand-blue text-white text-xs font-bold px-2 py-1 rounded-lg print-hidden">01 a 04/06</span>
                 </div>
                 <p class="text-slate-500 text-sm mb-6">Guia rápido para chegada noturna na Gare de Lyon, deslocamento ao <strong>Mercure Bastille Marais</strong> e saída estratégica para a Disney.</p>
                 
@@ -916,7 +956,9 @@
                     <div class="relative mb-6 pl-8">
                         <div class="timeline-dot bg-slate-800"><i class="fa-solid fa-moon"></i></div>
                         <span class="text-xs font-bold text-brand-blue uppercase tracking-wider">01 de Junho • 22h36</span>
-                        <h3 class="text-lg font-bold text-slate-800">Chegada Tardia & Hotel</h3>
+                        <h3 class="text-lg font-bold text-slate-800">Chegada Tardia & Hotel
+                            <a href="https://maps.google.com/?q=Gare+de+Lyon+Paris" target="_blank" class="print-hidden inline-flex items-center gap-1 ml-2 text-[10px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 px-2 py-1 rounded-full transition"><i class="fa-solid fa-map-location-dot"></i> Estação</a>
+                        </h3>
                         <div class="bg-slate-50 p-3 rounded-xl mt-2 border border-slate-200">
                             <ul class="text-sm text-slate-600 list-disc pl-4 space-y-1">
                                 <li>Ao desembarcar na <strong>Paris-Gare-de-Lyon</strong>, não tentem caminhar nem usar o metro com malas à noite.</li>
@@ -942,7 +984,9 @@
                     <div class="relative mb-6 pl-8">
                         <div class="timeline-dot bg-brand-green"><i class="fa-solid fa-store"></i></div>
                         <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Manhã & Tarde</span>
-                        <h3 class="text-lg font-bold text-slate-800">Charme, Cafés e O Bairro</h3>
+                        <h3 class="text-lg font-bold text-slate-800">Charme, Cafés e O Bairro
+                            <a href="https://maps.google.com/?q=Mercure+Paris+Bastille+Marais" target="_blank" class="print-hidden inline-flex items-center gap-1 ml-2 text-[10px] font-bold bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded-full transition"><i class="fa-solid fa-location-arrow"></i> Navegar</a>
+                        </h3>
                         <p class="text-sm text-slate-600 mt-1">Passem o dia no vosso bairro (<strong>Le Marais e Bastille</strong>). Visitem a <strong>Place des Vosges</strong> (com relvados perfeitos para a criança brincar). Aproveitem as lojas, os cafés e não se afastem demasiado para organizar as malas à noite.</p>
                     </div>
 
@@ -986,6 +1030,24 @@
                         <span class="text-xs font-bold text-brand-purple uppercase tracking-wider">Informações Úteis (Francês)</span>
                         <h3 class="text-lg font-bold text-slate-800">Checklists & Frases Práticas</h3>
                         
+                        <!-- Cards de Checklists Interativos -->
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                <h4 class="font-bold text-slate-700 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-moon text-brand-blue mr-1"></i> Chegada a Paris (Noite)</h4>
+                                <ul class="text-xs space-y-3 list-none">
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-blue rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-blue transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Endereço do Mercure Paris Bastille no telemóvel</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-blue rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-blue transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Chamar Uber/Bolt imediatamente (não caminhar)</span></label></li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                <h4 class="font-bold text-slate-700 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-clock text-brand-pink mr-1"></i> Noite anterior à Disney</h4>
+                                <ul class="text-xs space-y-3 list-none">
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-pink rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-pink transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Ingressos e documentos da reserva salvos</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-pink rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-pink transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Confirmar horário de "Extra Magic Time"</span></label></li>
+                                </ul>
+                            </div>
+                        </div>
+
                         <!-- Cards de Frases -->
                         <div class="mt-3 bg-purple-50 p-4 rounded-xl border border-purple-100">
                             <h4 class="font-bold text-purple-800 mb-2"><i class="fa-solid fa-comments mr-1"></i> Comunicação Rápida</h4>
@@ -1009,26 +1071,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Cards de Checklists -->
-                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                                <h4 class="font-bold text-slate-700 text-sm mb-2"><i class="fa-solid fa-moon text-brand-blue mr-1"></i> Ao chegar a Paris (Noite)</h4>
-                                <ul class="text-xs text-slate-600 space-y-2 list-none">
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Conferir malas e não se separarem na estação grande</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Endereço do <strong>Mercure Paris Bastille Marais</strong> no telemóvel</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Chamar Uber/Bolt ou ir para a fila de Táxis imediatamente</li>
-                                </ul>
-                            </div>
-                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                                <h4 class="font-bold text-slate-700 text-sm mb-2"><i class="fa-solid fa-clock text-brand-pink mr-1"></i> Noite anterior à Disney</h4>
-                                <ul class="text-xs text-slate-600 space-y-2 list-none">
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Ingressos / MagicPass e documentos da reserva salvos</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Confirmar o horário oficial de abertura do "Extra Magic Time"</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Rota ou pré-reserva do transporte para o hotel Disney feita</li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
@@ -1042,7 +1084,7 @@
             <div class="glass-card rounded-3xl p-5 md:p-6 shadow-lg mb-6 border-t-4 border-brand-pink">
                 <div class="flex justify-between items-start mb-2">
                     <h2 class="text-2xl font-bold text-slate-800">Bloco 7: Disney Paris (Operacional)</h2>
-                    <span class="bg-brand-pink text-white text-xs font-bold px-2 py-1 rounded-lg">04 a 05/06</span>
+                    <span class="bg-brand-pink text-white text-xs font-bold px-2 py-1 rounded-lg print-hidden">04 a 05/06</span>
                 </div>
                 <p class="text-slate-500 text-sm mb-6">Guia rápido para chegada cedo ao <strong>Disney's Hotel Cheyenne</strong>, uso do Extra Magic Time, estratégia de parques e saída para Orly.</p>
                 
@@ -1062,7 +1104,9 @@
                     <div class="relative mb-6 pl-8">
                         <div class="timeline-dot bg-slate-800"><i class="fa-solid fa-taxi"></i></div>
                         <span class="text-xs font-bold text-brand-pink uppercase tracking-wider">04 de Junho • 08h00</span>
-                        <h3 class="text-lg font-bold text-slate-800">Chegada & Hotel Cheyenne</h3>
+                        <h3 class="text-lg font-bold text-slate-800">Chegada & Hotel Cheyenne
+                            <a href="https://maps.google.com/?q=Disney's+Hotel+Cheyenne" target="_blank" class="print-hidden inline-flex items-center gap-1 ml-2 text-[10px] font-bold bg-pink-100 hover:bg-pink-200 text-pink-700 px-2 py-1 rounded-full transition"><i class="fa-solid fa-location-arrow"></i> Navegar</a>
+                        </h3>
                         <p class="text-sm text-slate-600 mt-1"><strong>Logística:</strong> Ao chegar à região (via Uber de Paris ou RER A), vão direto ao hotel. <em>"Nous voudrions laisser les bagages et aller aux parcs."</em> O objetivo é deixar as malas, confirmar o MagicPass/Ingressos e libertar as mãos.</p>
                     </div>
 
@@ -1070,7 +1114,9 @@
                     <div class="relative mb-6 pl-8">
                         <div class="timeline-dot bg-brand-yellow"><i class="fa-solid fa-star"></i></div>
                         <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">08h30 às 09h00</span>
-                        <h3 class="text-lg font-bold text-slate-800">Entrada & Extra Magic Time</h3>
+                        <h3 class="text-lg font-bold text-slate-800">Entrada & Extra Magic Time
+                            <a href="https://maps.google.com/?q=Disneyland+Paris" target="_blank" class="print-hidden inline-flex items-center gap-1 ml-2 text-[10px] font-bold bg-yellow-100 hover:bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full transition"><i class="fa-solid fa-map-location-dot"></i> Parque</a>
+                        </h3>
                         <div class="bg-yellow-50 p-3 rounded-xl mt-2 border border-yellow-100">
                             <ul class="text-sm text-slate-600 list-disc pl-4 space-y-1">
                                 <li>Usem o <strong>Shuttle Gratuito</strong> do hotel ou caminhem se estiverem dispostos.</li>
@@ -1094,7 +1140,9 @@
                     <div class="relative mb-6 pl-8">
                         <div class="timeline-dot bg-brand-red"><i class="fa-solid fa-plane-departure"></i></div>
                         <span class="text-xs font-bold text-brand-red uppercase tracking-wider">17h00 - Operação Orly</span>
-                        <h3 class="text-lg font-bold text-slate-800">Saída para o Aeroporto (Voo 21h15)</h3>
+                        <h3 class="text-lg font-bold text-slate-800">Saída para o Aeroporto (Voo 21h15)
+                            <a href="https://maps.google.com/?q=Orly+Airport+Paris" target="_blank" class="print-hidden inline-flex items-center gap-1 ml-2 text-[10px] font-bold bg-red-100 hover:bg-red-200 text-red-700 px-2 py-1 rounded-full transition"><i class="fa-solid fa-map-location-dot"></i> Aeroporto</a>
+                        </h3>
                         <div class="bg-red-50 p-3 rounded-xl mt-2 border border-red-100 border-l-4 border-l-brand-red">
                             <ul class="text-sm text-slate-600 list-disc pl-4 space-y-1">
                                 <li>Retornem ao hotel para pegar nas malas até às <strong>16h00–16h45</strong>. Usem a casa de banho e encham as garrafas de água.</li>
@@ -1128,6 +1176,25 @@
                         <span class="text-xs font-bold text-brand-purple uppercase tracking-wider">Informações Úteis (Francês)</span>
                         <h3 class="text-lg font-bold text-slate-800">Checklists & Frases Práticas</h3>
                         
+                        <!-- Cards de Checklists Interativos -->
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                <h4 class="font-bold text-slate-700 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-ticket text-brand-green mr-1"></i> Ao chegar ao Hotel Cheyenne</h4>
+                                <ul class="text-xs space-y-3 list-none">
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-green rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-green transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Guardar grandes volumes de malas</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-green rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-green transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Confirmar MagicPass e "Extra Magic Time"</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-green rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-green transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Separar apenas mochila leve e bateria</span></label></li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                <h4 class="font-bold text-slate-700 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-plane text-brand-blue mr-1"></i> Saída (Para Orly)</h4>
+                                <ul class="text-xs space-y-3 list-none">
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-blue rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-blue transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Passaportes e cartões de embarque à mão</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-blue rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-blue transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Lanche e água para evitar correria no aeroporto</span></label></li>
+                                </ul>
+                            </div>
+                        </div>
+
                         <!-- Cards de Frases -->
                         <div class="mt-3 bg-purple-50 p-4 rounded-xl border border-purple-100">
                             <h4 class="font-bold text-purple-800 mb-2"><i class="fa-solid fa-comments mr-1"></i> Comunicação Rápida</h4>
@@ -1150,26 +1217,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Cards de Checklists -->
-                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                                <h4 class="font-bold text-slate-700 text-sm mb-2"><i class="fa-solid fa-ticket text-brand-green mr-1"></i> Ao chegar ao Hotel Cheyenne</h4>
-                                <ul class="text-xs text-slate-600 space-y-2 list-none">
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Confirmar reserva e guardar grandes volumes de malas</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Confirmar Ingressos/MagicPass e horários de "Extra Magic Time"</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Separar apenas a mochila leve, bateria externa e casacos para o parque</li>
-                                </ul>
-                            </div>
-                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                                <h4 class="font-bold text-slate-700 text-sm mb-2"><i class="fa-solid fa-plane text-brand-blue mr-1"></i> Saída do Hotel (Para Orly)</h4>
-                                <ul class="text-xs text-slate-600 space-y-2 list-none">
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Passaportes e cartões de embarque (se aplicável) à mão</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Lanche e água comprados para evitar a correria no aeroporto</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Compras feitas nos parques acondicionadas com segurança</li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
@@ -1183,7 +1230,7 @@
             <div class="glass-card rounded-3xl p-5 md:p-6 shadow-lg mb-6 border-t-4 border-emerald-600">
                 <div class="flex justify-between items-start mb-2">
                     <h2 class="text-2xl font-bold text-slate-800">Bloco 8: Lisboa Final (Operacional)</h2>
-                    <span class="bg-emerald-600 text-white text-xs font-bold px-2 py-1 rounded-lg">05 a 09/06</span>
+                    <span class="bg-emerald-600 text-white text-xs font-bold px-2 py-1 rounded-lg print-hidden">05 a 09/06</span>
                 </div>
                 <p class="text-slate-500 text-sm mb-6">Guia rápido para chegada noturna, hospedagem no <strong>Novotel Lisboa</strong>, dias finais de passeio/compras e retorno ao Brasil.</p>
                 
@@ -1203,7 +1250,9 @@
                     <div class="relative mb-6 pl-8">
                         <div class="timeline-dot bg-slate-800"><i class="fa-solid fa-plane-arrival"></i></div>
                         <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">05 de Junho • 22h50</span>
-                        <h3 class="text-lg font-bold text-slate-800">Chegada Tardia & Hotel</h3>
+                        <h3 class="text-lg font-bold text-slate-800">Chegada Tardia & Hotel
+                            <a href="https://maps.google.com/?q=Aeroporto+de+Lisboa" target="_blank" class="print-hidden inline-flex items-center gap-1 ml-2 text-[10px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 px-2 py-1 rounded-full transition"><i class="fa-solid fa-map-location-dot"></i> Aeroporto</a>
+                        </h3>
                         <p class="text-sm text-slate-600 mt-1"><strong>Logística:</strong> Sem imigração (voo Schengen). Recolham as malas e sigam para a saída. A esta hora, o <strong>Plano A (Uber/Bolt/Táxi)</strong> direto para o Novotel Lisboa (Av. José Malhoa) é inegociável. Evitem o Metro com malas e criança à noite.</p>
                     </div>
 
@@ -1283,6 +1332,25 @@
                         <span class="text-xs font-bold text-brand-purple uppercase tracking-wider">Informações Úteis</span>
                         <h3 class="text-lg font-bold text-slate-800">Checklists & Frases Práticas</h3>
                         
+                        <!-- Cards de Checklists Interativos -->
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                <h4 class="font-bold text-slate-700 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-moon text-emerald-600 mr-1"></i> Chegada ao Novotel (05/06)</h4>
+                                <ul class="text-xs space-y-3 list-none">
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-green rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-green transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Conferir as malas ao sair da recolha de bagagem</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-green rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-green transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Chamar Uber/Bolt (evitar caminhar à noite)</span></label></li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                <h4 class="font-bold text-slate-700 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-plane text-brand-red mr-1"></i> Regresso ao Brasil (09/06)</h4>
+                                <ul class="text-xs space-y-3 list-none">
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-red rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-red transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Passaportes e Cartões de Embarque acessíveis</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-red rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-red transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Malas pesadas (Atenção ao limite de peso!)</span></label></li>
+                                    <li><label class="flex items-start cursor-pointer group"><input type="checkbox" class="form-checkbox h-4 w-4 text-brand-red rounded border-slate-300 mr-2 mt-0.5 focus:ring-brand-red transition duration-150 ease-in-out cursor-pointer"><span class="group-hover:text-slate-800 transition-colors text-slate-600 font-semibold">Medicamentos na bagagem de mão</span></label></li>
+                                </ul>
+                            </div>
+                        </div>
+
                         <!-- Cards de Frases -->
                         <div class="mt-3 bg-purple-50 p-4 rounded-xl border border-purple-100">
                             <h4 class="font-bold text-purple-800 mb-2"><i class="fa-solid fa-comments mr-1"></i> Comunicação Rápida</h4>
@@ -1305,27 +1373,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Cards de Checklists -->
-                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                                <h4 class="font-bold text-slate-700 text-sm mb-2"><i class="fa-solid fa-moon text-emerald-600 mr-1"></i> Chegada ao Novotel (05/06)</h4>
-                                <ul class="text-xs text-slate-600 space-y-2 list-none">
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Conferir as malas ao sair da recolha de bagagem</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Chamar Uber/Bolt. Evitar caminhadas com malas à noite</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Confirmar o horário do pequeno-almoço no check-in</li>
-                                </ul>
-                            </div>
-                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                                <h4 class="font-bold text-slate-700 text-sm mb-2"><i class="fa-solid fa-plane text-brand-red mr-1"></i> Regresso ao Brasil (09/06)</h4>
-                                <ul class="text-xs text-slate-600 space-y-2 list-none">
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Passaportes e Cartões de Embarque facilmente acessíveis</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Malas pesadas e conferidas (Atenção às regras de peso!)</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Medicamentos e itens da pequena na bagagem de mão</li>
-                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Alarme configurado para as 05h15</li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
@@ -1334,7 +1381,7 @@
 
     </main>
 
-    <!-- JS for Tab Switching -->
+    <!-- JS for Tab Switching & Print -->
     <script>
         function showCity(cityId, clickedBtn) {
             // Esconder todos os conteúdos
@@ -1352,22 +1399,46 @@
 
             // Atualizar as cores do botão clicado baseado na cidade
             if(cityId === 'lisboa1') {
-                clickedBtn.className = "tab-btn bg-brand-green text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105";
+                clickedBtn.className = "tab-btn bg-brand-green text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105 active-tab";
             } else if (cityId === 'madrid') {
-                clickedBtn.className = "tab-btn bg-brand-red text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105";
+                clickedBtn.className = "tab-btn bg-brand-red text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105 active-tab";
             } else if (cityId === 'roma') {
-                clickedBtn.className = "tab-btn bg-amber-600 text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105";
+                clickedBtn.className = "tab-btn bg-amber-600 text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105 active-tab";
             } else if (cityId === 'verona') {
-                clickedBtn.className = "tab-btn bg-pink-500 text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105";
+                clickedBtn.className = "tab-btn bg-pink-500 text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105 active-tab";
             } else if (cityId === 'milao') {
-                clickedBtn.className = "tab-btn bg-gray-600 text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105";
+                clickedBtn.className = "tab-btn bg-gray-600 text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105 active-tab";
             } else if (cityId === 'paris') {
-                clickedBtn.className = "tab-btn bg-brand-blue text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105";
+                clickedBtn.className = "tab-btn bg-brand-blue text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105 active-tab";
             } else if (cityId === 'disney') {
-                clickedBtn.className = "tab-btn bg-brand-pink text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105";
+                clickedBtn.className = "tab-btn bg-brand-pink text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105 active-tab";
             } else if (cityId === 'lisboa2') {
-                clickedBtn.className = "tab-btn bg-emerald-600 text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105";
+                clickedBtn.className = "tab-btn bg-emerald-600 text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105 active-tab";
             }
+        }
+
+        // Print function to show all tabs for a complete PDF/Print
+        function printItinerary() {
+            // Memoriza a aba atual
+            const currentActive = document.querySelector('.tab-content.active');
+            
+            // Abre todas as abas para impressão
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.style.display = 'block';
+            });
+            
+            // Chama a janela de impressão
+            window.print();
+            
+            // Retorna ao estado normal após a impressão
+            setTimeout(() => {
+                document.querySelectorAll('.tab-content').forEach(el => {
+                    el.style.display = '';
+                });
+                if(currentActive) {
+                    currentActive.style.display = 'block';
+                }
+            }, 1000);
         }
     </script>
 </body>
