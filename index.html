@@ -45,10 +45,6 @@
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Custom Scrollbar for horizontal nav */
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
         /* Subtle separator for days */
         .day-separator { border-top: 2px dashed #e2e8f0; margin: 2rem 0; padding-top: 2rem; position: relative; }
         .day-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: white; padding: 0 15px; font-weight: bold; color: #64748b; border: 2px dashed #e2e8f0; border-radius: 20px; font-size: 0.85rem;}
@@ -73,38 +69,38 @@
     <!-- Main Container -->
     <main class="max-w-3xl mx-auto px-4">
         
-        <!-- Navigation Tabs -->
-        <nav class="flex overflow-x-auto gap-3 mb-6 pb-4 snap-x hide-scrollbar" id="tabs">
-            <button onclick="showCity('lisboa1', this)" class="tab-btn snap-start shrink-0 bg-brand-green text-white font-bold py-2 px-5 rounded-2xl shadow-lg transition transform hover:scale-105">
-                <div class="text-xs font-normal opacity-80">20 a 23 Mai</div>
+        <!-- Navigation Tabs (Updated layout to wrap items so all 8 are visible) -->
+        <nav class="flex flex-wrap justify-center gap-2 md:gap-3 mb-6 pb-4" id="tabs">
+            <button onclick="showCity('lisboa1', this)" class="tab-btn bg-brand-green text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105">
+                <div class="text-[10px] sm:text-xs font-normal opacity-80">20 a 23 Mai</div>
                 <i class="fa-solid fa-paste"></i> Lisboa I
             </button>
-            <button onclick="showCity('madrid', this)" class="tab-btn snap-start shrink-0 bg-white text-slate-500 font-bold py-2 px-5 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50">
-                <div class="text-xs font-normal opacity-80">23 a 25 Mai</div>
+            <button onclick="showCity('madrid', this)" class="tab-btn bg-white text-slate-500 font-bold py-2 px-4 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50">
+                <div class="text-[10px] sm:text-xs font-normal opacity-80">23 a 25 Mai</div>
                 <i class="fa-solid fa-bullhorn"></i> Madrid
             </button>
-            <button onclick="showCity('roma', this)" class="tab-btn snap-start shrink-0 bg-white text-slate-500 font-bold py-2 px-5 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50">
-                <div class="text-xs font-normal opacity-80">25 a 28 Mai</div>
+            <button onclick="showCity('roma', this)" class="tab-btn bg-white text-slate-500 font-bold py-2 px-4 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50">
+                <div class="text-[10px] sm:text-xs font-normal opacity-80">25 a 28 Mai</div>
                 <i class="fa-brands fa-vimeo-v"></i> Roma
             </button>
-            <button onclick="showCity('verona', this)" class="tab-btn snap-start shrink-0 bg-white text-slate-500 font-bold py-2 px-5 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50">
-                <div class="text-xs font-normal opacity-80">28 a 30 Mai</div>
+            <button onclick="showCity('verona', this)" class="tab-btn bg-white text-slate-500 font-bold py-2 px-4 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50">
+                <div class="text-[10px] sm:text-xs font-normal opacity-80">28 a 30 Mai</div>
                 <i class="fa-solid fa-heart"></i> Verona
             </button>
-            <button onclick="showCity('milao', this)" class="tab-btn snap-start shrink-0 bg-white text-slate-500 font-bold py-2 px-5 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50">
-                <div class="text-xs font-normal opacity-80">30 Mai a 01 Jun</div>
+            <button onclick="showCity('milao', this)" class="tab-btn bg-white text-slate-500 font-bold py-2 px-4 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50">
+                <div class="text-[10px] sm:text-xs font-normal opacity-80">30 Mai a 01 Jun</div>
                 <i class="fa-solid fa-building"></i> Milão
             </button>
-            <button onclick="showCity('paris', this)" class="tab-btn snap-start shrink-0 bg-white text-slate-500 font-bold py-2 px-5 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50">
-                <div class="text-xs font-normal opacity-80">01 a 04 Jun</div>
+            <button onclick="showCity('paris', this)" class="tab-btn bg-white text-slate-500 font-bold py-2 px-4 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50">
+                <div class="text-[10px] sm:text-xs font-normal opacity-80">01 a 04 Jun</div>
                 <i class="fa-brands fa-fort-awesome"></i> Paris
             </button>
-            <button onclick="showCity('disney', this)" class="tab-btn snap-start shrink-0 bg-white text-slate-500 font-bold py-2 px-5 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50">
-                <div class="text-xs font-normal opacity-80">04 a 05 Jun</div>
+            <button onclick="showCity('disney', this)" class="tab-btn bg-white text-slate-500 font-bold py-2 px-4 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50">
+                <div class="text-[10px] sm:text-xs font-normal opacity-80">04 a 05 Jun</div>
                 <i class="fa-solid fa-wand-magic-sparkles"></i> Disney
             </button>
-            <button onclick="showCity('lisboa2', this)" class="tab-btn snap-start shrink-0 bg-white text-slate-500 font-bold py-2 px-5 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50">
-                <div class="text-xs font-normal opacity-80">05 a 09 Jun</div>
+            <button onclick="showCity('lisboa2', this)" class="tab-btn bg-white text-slate-500 font-bold py-2 px-4 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50">
+                <div class="text-[10px] sm:text-xs font-normal opacity-80">05 a 09 Jun</div>
                 <i class="fa-solid fa-plane-arrival"></i> Lisboa II
             </button>
         </nav>
@@ -112,7 +108,7 @@
         <!-- ========================================== -->
         <!-- CONTENT: LISBOA 1 -->
         <!-- ========================================== -->
-        <div id="lisboa1" class="tab-content">
+        <div id="lisboa1" class="tab-content active">
             <div class="glass-card rounded-3xl p-5 md:p-6 shadow-lg mb-6 border-t-4 border-brand-green">
                 <div class="flex justify-between items-start mb-2">
                     <h2 class="text-2xl font-bold text-slate-800">Bloco 1: Lisboa (Operacional)</h2>
@@ -460,7 +456,7 @@
                         <div class="timeline-dot bg-brand-yellow"><i class="fa-solid fa-bed"></i></div>
                         <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">16h30 às 18h00</span>
                         <h3 class="text-lg font-bold text-slate-800">Check-in, Descanso & Ambientação</h3>
-                        <p class="text-sm text-slate-600 mt-1"><em>"Abbiamo una prenotazione a nome di Júlio Cesar Volpatto."</em><br>Check-in, banho e uma caminhada muito curta pela região de Monti à noite para o primeiro jantar e gelato.</p>
+                        <p class="text-sm text-slate-600 mt-1"><em>"Abbiamo una prenotazione a nome di Júlio Cesar Volpatto."</em><br>Check-in, banho e uma caminhada muito curta pela região di Monti à noite para o primeiro jantar e gelato.</p>
                     </div>
 
                     <div class="day-separator"><div class="day-badge">26 de Maio (Terça-feira)</div></div>
@@ -489,7 +485,7 @@
                             <p class="text-sm text-slate-700"><strong>Logística de Saída:</strong></p>
                             <ul class="text-sm text-slate-600 list-disc pl-4 mt-1 space-y-1">
                                 <li>Almocem cedo. Saiam do hotel, o mais tardar, às <strong>15h15</strong> (com criança e calor, a antecedência é vital).</li>
-                                <li>Levem os bilhetes offline, passaportes e documentos de acessibilidade (se aplicável para entrada gratuita).</li>
+                                <li>Levem os bilhetes offline, passaportes e documenti de acessibilidade (se aplicável para entrada gratuita).</li>
                                 <li>Evitem usar carrinhos muito grandes devido aos degraus.</li>
                             </ul>
                         </div>
@@ -518,7 +514,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
                             <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
                                 <span class="text-xs font-bold text-slate-700"><i class="fa-solid fa-wifi"></i> App / Internet Falhou</span>
-                                <p class="text-xs text-slate-600 mt-1">Conecte ao Wi-Fi. Se o Uber/Carro não vier, não caminhe sem direção com malas. Use Táxi Oficial Branco. Se a mala não vier: <em>"Il mio bagaglio non è arrivato."</em></p>
+                                <p class="text-xs text-slate-600 mt-1">Conecte ao Wi-Fi. Se o Uber/Carro não vier, non caminhe sem direção com malas. Use Táxi Oficial Branco. Se a mala não vier: <em>"Il mio bagaglio non è arrivato."</em></p>
                             </div>
                             <div class="bg-orange-50 p-3 rounded-xl border border-orange-200">
                                 <span class="text-xs font-bold text-orange-700"><i class="fa-solid fa-clock"></i> Atraso no Comboio</span>
@@ -540,7 +536,7 @@
                                 <div>
                                     <span class="text-xs font-bold text-slate-500 uppercase">Transporte & Aeroporto</span>
                                     <ul class="text-sm text-slate-700 space-y-2 mt-1">
-                                        <li><strong><i class="fa-solid fa-quote-left text-purple-300 mr-1"></i></strong> "Dov'è l'uscita, per favore?" <span class="text-xs text-slate-500">(Onde é a saída?)</span></li>
+                                        <li><strong><i class="fa-solid fa-quote-left text-purple-300 mr-1"></i></strong> "Dov'è l'uscita, per favore?" <span class="text-xs text-slate-500">(Onde è a saída?)</span></li>
                                         <li><strong><i class="fa-solid fa-quote-left text-purple-300 mr-1"></i></strong> "Andiamo al Relais Monti, Via Urbana venti."</li>
                                         <li><strong><i class="fa-solid fa-quote-left text-purple-300 mr-1"></i></strong> "Da quale binario parte il treno per Verona?" <span class="text-xs text-slate-500">(Plataforma do comboio?)</span></li>
                                     </ul>
@@ -1185,52 +1181,153 @@
         <!-- ========================================== -->
         <div id="lisboa2" class="tab-content">
             <div class="glass-card rounded-3xl p-5 md:p-6 shadow-lg mb-6 border-t-4 border-emerald-600">
-                <h2 class="text-2xl font-bold text-slate-800 mb-2">O Regresso a Casa</h2>
-                <p class="text-slate-500 text-sm mb-6">Desacelerando em Lisboa (05 a 09/06)</p>
+                <div class="flex justify-between items-start mb-2">
+                    <h2 class="text-2xl font-bold text-slate-800">Bloco 8: Lisboa Final (Operacional)</h2>
+                    <span class="bg-emerald-600 text-white text-xs font-bold px-2 py-1 rounded-lg">05 a 09/06</span>
+                </div>
+                <p class="text-slate-500 text-sm mb-6">Guia rápido para chegada noturna, hospedagem no <strong>Novotel Lisboa</strong>, dias finais de passeio/compras e retorno ao Brasil.</p>
                 
+                <!-- ALERTA SAÍDA -->
+                <div class="bg-emerald-50 p-4 rounded-2xl border-l-4 border-l-brand-green mb-8 border border-emerald-100 shadow-sm relative overflow-hidden">
+                    <i class="fa-solid fa-plane-departure absolute -right-4 -bottom-4 text-6xl text-emerald-200 opacity-50"></i>
+                    <div class="relative z-10">
+                        <h3 class="font-bold text-emerald-800 text-lg mb-2"><i class="fa-solid fa-clock mr-1"></i> Foco Total: Voo de Retorno</h3>
+                        <p class="text-sm text-slate-700">O voo internacional para o Brasil é no dia 09/06 às <strong>10h00</strong>. Planeiem sair do hotel no máximo às <strong>06h30</strong>. Lisboa pode ter filas demoradas no check-in e segurança para voos intercontinentais.</p>
+                    </div>
+                </div>
+
                 <div class="timeline-container">
                     <div class="timeline-line"></div>
                     
+                    <!-- Chegada 05/06 -->
                     <div class="relative mb-6 pl-8">
                         <div class="timeline-dot bg-slate-800"><i class="fa-solid fa-plane-arrival"></i></div>
-                        <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">05 de Junho (Noite)</span>
-                        <h3 class="text-lg font-bold text-slate-800">Chegada a Portugal</h3>
-                        <p class="text-sm text-slate-600 mt-1">Uber do Aeroporto de Lisboa direto ao hotel. A parte intensa da viagem acabou. Daqui para a frente, o ritmo deve ser lento e relaxante.</p>
+                        <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">05 de Junho • 22h50</span>
+                        <h3 class="text-lg font-bold text-slate-800">Chegada Tardia & Hotel</h3>
+                        <p class="text-sm text-slate-600 mt-1"><strong>Logística:</strong> Sem imigração (voo Schengen). Recolham as malas e sigam para a saída. A esta hora, o <strong>Plano A (Uber/Bolt/Táxi)</strong> direto para o Novotel Lisboa (Av. José Malhoa) é inegociável. Evitem o Metro com malas e criança à noite.</p>
                     </div>
 
                     <div class="day-separator"><div class="day-badge">06 de Junho (Sábado)</div></div>
 
+                    <!-- Passeios 06/06 -->
                     <div class="relative mb-6 pl-8">
-                        <div class="timeline-dot bg-blue-500"><i class="fa-solid fa-fish-fins"></i></div>
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">10:00 - Manhã</span>
-                        <h3 class="text-lg font-bold text-slate-800">Oceanário de Lisboa</h3>
-                        <p class="text-sm text-slate-600 mt-1">Vão ao Parque das Nações (zona moderna). Visitem o imenso Oceanário (sucesso absoluto com crianças). A área ao redor é linda para almoçar à beira-rio.</p>
-                    </div>
-
-                    <div class="relative mb-6 pl-8">
-                        <div class="timeline-dot bg-brand-yellow"><i class="fa-solid fa-cable-car"></i></div>
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">15:00 - Tarde</span>
-                        <h3 class="text-lg font-bold text-slate-800">Teleférico & Passeio</h3>
-                        <p class="text-sm text-slate-600 mt-1">Após a sesta no carrinho, andem no Teleférico ali mesmo no parque. Vista panorâmica, seguro e silencioso.</p>
+                        <div class="timeline-dot bg-blue-500"><i class="fa-solid fa-camera"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Dia Livre (Desacelerar)</span>
+                        <h3 class="text-lg font-bold text-slate-800">Lisboa Clássica</h3>
+                        <div class="bg-blue-50 p-3 rounded-xl mt-2 border border-blue-100">
+                            <ul class="text-sm text-slate-600 list-disc pl-4 space-y-1">
+                                <li>Passeio pela <strong>Baixa, Chiado e Praça do Comércio</strong>.</li>
+                                <li>Rua Augusta e vista do Elevador de Santa Justa.</li>
+                                <li>Caminhem e tirem fotos sem o peso de um roteiro rígido.</li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div class="day-separator"><div class="day-badge">07 de Junho (Domingo)</div></div>
 
+                    <!-- Passeios 07/06 -->
                     <div class="relative mb-6 pl-8">
-                        <div class="timeline-dot bg-brand-green"><i class="fa-solid fa-car-side"></i></div>
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">10:30 - Manhã</span>
-                        <h3 class="text-lg font-bold text-slate-800">Alfama de Tuk-Tuk</h3>
-                        <p class="text-sm text-slate-600 mt-1">Para ver a parte antiga (Alfama, Sé e Castelo) <strong>NÃO tentem empurrar carrinho nas ladeiras</strong>. Contratem um "Tuk-Tuk Elétrico" na praça principal. A menina diverte-se muito no ventinho e vocês poupam as pernas.</p>
+                        <div class="timeline-dot bg-brand-yellow"><i class="fa-solid fa-ship"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Manhã & Tarde</span>
+                        <h3 class="text-lg font-bold text-slate-800">A Rota de Belém</h3>
+                        <p class="text-sm text-slate-600 mt-1">Visitem a área plana e fantástica de <strong>Belém</strong> (Mosteiro dos Jerónimos, Torre de Belém, Padrão dos Descobrimentos). Paragem obrigatória para comer os autênticos Pastéis de Belém. Retornem ao hotel ao fim da tarde para a sesta/descanso.</p>
                     </div>
 
-                    <div class="day-separator"><div class="day-badge">08 e 09 de Junho</div></div>
+                    <div class="day-separator"><div class="day-badge">08 de Junho (Segunda-feira)</div></div>
 
+                    <!-- Compras 08/06 -->
                     <div class="relative mb-6 pl-8">
-                        <div class="timeline-dot bg-brand-blue"><i class="fa-solid fa-bag-shopping"></i></div>
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Dias Livres</span>
-                        <h3 class="text-lg font-bold text-slate-800">Compras, Bacalhau & Despedida</h3>
-                        <p class="text-sm text-slate-600 mt-1">Usem o dia 8 para ir ao Shopping Colombo ou Amoreiras fechar as malas, e jantem um Bacalhau no bairro. Dia 9: Check-out tranquilo, Uber, e o orgulho de terem liderado uma mega Euro Trip em família!</p>
+                        <div class="timeline-dot bg-brand-green"><i class="fa-solid fa-bag-shopping"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Dia Livre</span>
+                        <h3 class="text-lg font-bold text-slate-800">Compras & Organização</h3>
+                        <p class="text-sm text-slate-600 mt-1">Dia ideal para as últimas compras no <strong>El Corte Inglés</strong> (muito prático e perto) ou no Centro Colombo. O outlet <em>Freeport</em> só é recomendado se ainda houver muita energia. À noite, fechem as malas, confiram os pesos e os passaportes.</p>
                     </div>
+
+                    <div class="day-separator"><div class="day-badge">09 de Junho (Terça-feira)</div></div>
+
+                    <!-- Saída 09/06 -->
+                    <div class="relative mb-6 pl-8">
+                        <div class="timeline-dot bg-brand-red"><i class="fa-solid fa-plane-departure"></i></div>
+                        <span class="text-xs font-bold text-brand-red uppercase tracking-wider">06h30 - Operação Retorno</span>
+                        <h3 class="text-lg font-bold text-slate-800">Saída para o Aeroporto (Voo 10h00)</h3>
+                        <div class="bg-red-50 p-3 rounded-xl mt-2 border border-red-100 border-l-4 border-l-brand-red">
+                            <ul class="text-sm text-slate-600 list-disc pl-4 space-y-1">
+                                <li>Check-out no hotel às 06h10.</li>
+                                <li>Chamem Uber/Bolt/Táxi e <strong>saiam o mais tardar às 06h30</strong>.</li>
+                                <li>Destino: Aeroporto de Lisboa - Partidas Internacionais.</li>
+                                <li>Chegada prevista: 06h45–07h00.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Contingências Extras -->
+                    <div class="relative pl-8 mt-8">
+                        <div class="timeline-dot bg-slate-400"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Atenção Especial</span>
+                        <h3 class="text-lg font-bold text-slate-800">Planos de Contingência</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
+                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                                <span class="text-xs font-bold text-slate-700"><i class="fa-solid fa-taxi"></i> App Indisponível</span>
+                                <p class="text-xs text-slate-600 mt-1">Se o Uber/Bolt falhar à chegada (22h50) ou na partida, dirijam-se diretamente à praça de Táxis Oficiais do aeroporto/hotel.</p>
+                            </div>
+                            <div class="bg-orange-50 p-3 rounded-xl border border-orange-200">
+                                <span class="text-xs font-bold text-orange-700"><i class="fa-solid fa-clock"></i> Atraso no Dia do Voo</span>
+                                <p class="text-xs text-slate-600 mt-1">Se acordarem atrasados no dia 09, peçam um táxi imediatamente. <strong>Nunca tentem ir de metro</strong> num cenário de atraso com malas para um voo internacional.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Frases Úteis e Checklists -->
+                    <div class="relative pl-8 mt-10">
+                        <div class="timeline-dot bg-brand-purple"><i class="fa-solid fa-language"></i></div>
+                        <span class="text-xs font-bold text-brand-purple uppercase tracking-wider">Informações Úteis</span>
+                        <h3 class="text-lg font-bold text-slate-800">Checklists & Frases Práticas</h3>
+                        
+                        <!-- Cards de Frases -->
+                        <div class="mt-3 bg-purple-50 p-4 rounded-xl border border-purple-100">
+                            <h4 class="font-bold text-purple-800 mb-2"><i class="fa-solid fa-comments mr-1"></i> Comunicação Rápida</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <span class="text-xs font-bold text-slate-500 uppercase">Transporte & Aeroporto</span>
+                                    <ul class="text-sm text-slate-700 space-y-2 mt-1">
+                                        <li><strong><i class="fa-solid fa-quote-left text-purple-300 mr-1"></i></strong> "Boa noite. Vamos para o Novotel Lisboa, na Avenida José Malhoa."</li>
+                                        <li><strong><i class="fa-solid fa-quote-left text-purple-300 mr-1"></i></strong> "Onde posso apanhar um táxi oficial?"</li>
+                                        <li><strong><i class="fa-solid fa-quote-left text-purple-300 mr-1"></i></strong> "Vamos para o Aeroporto de Lisboa, partidas internacionais."</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-bold text-slate-500 uppercase">Hotel & Dia a Dia</span>
+                                    <ul class="text-sm text-slate-700 space-y-2 mt-1">
+                                        <li><strong><i class="fa-solid fa-quote-left text-purple-300 mr-1"></i></strong> "Temos uma reserva em nome de Júlio Cesar Volpatto."</li>
+                                        <li><strong><i class="fa-solid fa-quote-left text-purple-300 mr-1"></i></strong> "Poderiam ajudar-nos com as malas, por favor?"</li>
+                                        <li><strong><i class="fa-solid fa-quote-left text-purple-300 mr-1"></i></strong> "Pode trazer a conta, por favor?"</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cards de Checklists -->
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                <h4 class="font-bold text-slate-700 text-sm mb-2"><i class="fa-solid fa-moon text-emerald-600 mr-1"></i> Chegada ao Novotel (05/06)</h4>
+                                <ul class="text-xs text-slate-600 space-y-2 list-none">
+                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Conferir as malas ao sair da recolha de bagagem</li>
+                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Chamar Uber/Bolt. Evitar caminhadas com malas à noite</li>
+                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Confirmar o horário do pequeno-almoço no check-in</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                <h4 class="font-bold text-slate-700 text-sm mb-2"><i class="fa-solid fa-plane text-brand-red mr-1"></i> Regresso ao Brasil (09/06)</h4>
+                                <ul class="text-xs text-slate-600 space-y-2 list-none">
+                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Passaportes e Cartões de Embarque facilmente acessíveis</li>
+                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Malas pesadas e conferidas (Atenção às regras de peso!)</li>
+                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Medicamentos e itens da pequena na bagagem de mão</li>
+                                    <li class="flex items-start"><i class="fa-regular fa-square-check text-brand-green mr-2 mt-0.5"></i> Alarme configurado para as 05h15</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -1247,7 +1344,7 @@
             
             // Repor o estilo de todos os botões (estado inativo)
             document.querySelectorAll('.tab-btn').forEach(el => {
-                el.className = "tab-btn snap-start shrink-0 bg-white text-slate-500 font-bold py-2 px-5 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50";
+                el.className = "tab-btn bg-white text-slate-500 font-bold py-2 px-4 rounded-2xl shadow transition transform hover:scale-105 hover:bg-slate-50";
             });
 
             // Mostrar o conteúdo selecionado
@@ -1255,21 +1352,21 @@
 
             // Atualizar as cores do botão clicado baseado na cidade
             if(cityId === 'lisboa1') {
-                clickedBtn.className = "tab-btn snap-start shrink-0 bg-brand-green text-white font-bold py-2 px-5 rounded-2xl shadow-lg transition transform hover:scale-105";
+                clickedBtn.className = "tab-btn bg-brand-green text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105";
             } else if (cityId === 'madrid') {
-                clickedBtn.className = "tab-btn snap-start shrink-0 bg-brand-red text-white font-bold py-2 px-5 rounded-2xl shadow-lg transition transform hover:scale-105";
+                clickedBtn.className = "tab-btn bg-brand-red text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105";
             } else if (cityId === 'roma') {
-                clickedBtn.className = "tab-btn snap-start shrink-0 bg-amber-600 text-white font-bold py-2 px-5 rounded-2xl shadow-lg transition transform hover:scale-105";
+                clickedBtn.className = "tab-btn bg-amber-600 text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105";
             } else if (cityId === 'verona') {
-                clickedBtn.className = "tab-btn snap-start shrink-0 bg-pink-500 text-white font-bold py-2 px-5 rounded-2xl shadow-lg transition transform hover:scale-105";
+                clickedBtn.className = "tab-btn bg-pink-500 text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105";
             } else if (cityId === 'milao') {
-                clickedBtn.className = "tab-btn snap-start shrink-0 bg-gray-600 text-white font-bold py-2 px-5 rounded-2xl shadow-lg transition transform hover:scale-105";
+                clickedBtn.className = "tab-btn bg-gray-600 text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105";
             } else if (cityId === 'paris') {
-                clickedBtn.className = "tab-btn snap-start shrink-0 bg-brand-blue text-white font-bold py-2 px-5 rounded-2xl shadow-lg transition transform hover:scale-105";
+                clickedBtn.className = "tab-btn bg-brand-blue text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105";
             } else if (cityId === 'disney') {
-                clickedBtn.className = "tab-btn snap-start shrink-0 bg-brand-pink text-white font-bold py-2 px-5 rounded-2xl shadow-lg transition transform hover:scale-105";
+                clickedBtn.className = "tab-btn bg-brand-pink text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105";
             } else if (cityId === 'lisboa2') {
-                clickedBtn.className = "tab-btn snap-start shrink-0 bg-emerald-600 text-white font-bold py-2 px-5 rounded-2xl shadow-lg transition transform hover:scale-105";
+                clickedBtn.className = "tab-btn bg-emerald-600 text-white font-bold py-2 px-4 rounded-2xl shadow-lg transition transform hover:scale-105";
             }
         }
     </script>
